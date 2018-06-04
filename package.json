@@ -1,0 +1,14 @@
+{
+  "name": "react-ssr",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:webtjw/react-ssr.git",
+  "author": "jiawei <webtjw@foxmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3",
+    "next": "^6.0.3",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0"
+  }
+}
