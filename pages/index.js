@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
-import MainWrapper from '../components/MainWrapper'
+import NextDocument from '../components/NextDocument'
 
 export default class Index extends Component {
   render () {
-    return <MainWrapper>
+    return <NextDocument>
       <div className="main-index">
         main-index
       </div>
-    </MainWrapper>
+    </NextDocument>
   }
 }
