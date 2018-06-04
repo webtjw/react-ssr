@@ -5,10 +5,19 @@
   "repository": "git@github.com:webtjw/react-ssr.git",
   "author": "jiawei <webtjw@foxmail.com>",
   "license": "MIT",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production next build",
+    "start": "next start"
+  },
   "dependencies": {
     "express": "^4.16.3",
     "next": "^6.0.3",
     "react": "^16.4.0",
     "react-dom": "^16.4.0"
+  },
+  "devDependencies": {
+    "@zeit/next-sass": "^0.2.0",
+    "cross-env": "^5.1.6",
+    "node-sass": "^4.9.0"
   }
 }
