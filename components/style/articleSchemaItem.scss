@@ -1,0 +1,12 @@
+.article-schema-item {
+  transition: padding .2s ease;
+  &:hover {
+    background-color: #eee; padding: 18px 20px;
+
+    .article-schema-title { text-decoration: underline; color: #22af6f;}
+  }
+
+  .tag-list { margin-left: 20px;}
+  .tag-another { margin-left: 8px;}
+  .tag-another:hover { text-decoration: underline; color: #22af6f;}
+}

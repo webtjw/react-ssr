@@ -3,7 +3,7 @@ import Link from 'next/link'
 import './style/topbar.scss'
 
 const topNavs = [
-  {name: '首页', path: '/'},
+  {name: '首页', path: '/index'},
   {name: '文章', path: '/article'},
   {name: '标签', path: '/tag'},
   {name: '关于', path: '/about'},
@@ -18,11 +18,10 @@ class Topbar extends Component {
           <Link href={'/login'}><img className="avatar pointer" src='/static/images/avatar.jpg' alt="Robin"/></Link>
         </div>
         <nav className="a-r font-15" data-flex-box="1" data-flex="dir:left main:right cross:center">
-          {
-            topNavs.map(item => <Link href={item.path} key={item.path}>
-              <a className="nav-item relative">{item.name}</a>
-            </Link>)
-          }
+          <Link href="/index" as="/"><a className="nav-item relative">首页</a></Link>
+          <Link href="/article"><a className="nav-item relative">文章</a></Link>
+          <Link href="/tag"><a className="nav-item relative">标签</a></Link>
+          <Link href="/about"><a className="nav-item relative">关于</a></Link>
         </nav>
       </div>
     </div>

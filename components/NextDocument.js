@@ -22,8 +22,8 @@ class NextDocument extends Document {
       <meta httpEquiv="content-type" content="text/html;charset=utf-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=Edge" />
       <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
-      <meta name="description" content={`前端技术,技术博客,javascript,前端技术学习,前端博客,${description || ''}`}/>
-      <meta name="keyword" content={`${keyword || ''}`}/>
+      <meta name="description" content={`${description || ''},前端技术,技术博客,javascript,前端技术学习,前端博客`}/>
+      <meta name="keyword" content={`${keyword || ''},前端技术`}/>
 
       <link rel="stylesheet" href="/_next/static/style.css" />
 
