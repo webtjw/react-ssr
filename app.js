@@ -20,6 +20,9 @@ const luanchApp = async () => {
     const {url} = req
 
     if (url === '/') nextApp.render(req, res, '/index')
+    else if (/\/article\/[0-9]+/.test(url)) {
+      nextApp.render(req, res, '/articleDetail', {id: url.match(/\/article\/([0-9]+)/)[1]})
+    }
     else requestHandler(req, res, url)
   })
 
