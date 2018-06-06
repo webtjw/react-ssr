@@ -21,7 +21,7 @@ class TagItem extends Component {
   render () {
     const {articles, tag} = this.props
 
-    return <NextDocument title="标签 · Robin">
+    return <NextDocument title={`${tag} · 标签`}>
       <div className="tag-item-page p-t-40">
         <div className="p-b-40" data-flex="dir:left cross:center">
           <img className="svg-16" src='/static/svg/tag.svg' alt="tag"/>
