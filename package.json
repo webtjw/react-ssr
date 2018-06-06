@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build": "cross-env NODE_ENV=production next build",
-    "start": "next start"
+    "start": "node app"
   },
   "dependencies": {
     "axios": "^0.18.0",
