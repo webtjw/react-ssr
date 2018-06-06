@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 import Link from 'next/link'
+import Router from 'next/router'
 import NextDocument from '../components/NextDocument'
 import RobinInput from '../components/common/RobinInput'
+import {login} from '../request'
 import '../components/style/login.scss'
 
 class Login extends Component {
@@ -16,14 +18,13 @@ class Login extends Component {
   async checkSubmit () {
     const {token} = this.state
     if (typeof token === 'string' && token.trim()) {
-      const result = await utils.login(token)
+      const result = await login(token)
       if (result && result.success && result.data) {
-        this.props.updateDeveloper(result.data)
-        utils.addSideTip({text: `欢迎登入，${result.data}`, type: 'success'})
-        this.props.history.go(-1)
+        alert(`欢迎登入，${result.data}`)
+        Router.back()
       }
-      else utils.addSideTip({text: '登入失败', type: 'error'})
-    } else utils.addSideTip({text: '请输入口令', type: 'error'})
+      else alert('登入失败')
+    } else alert('请输入口令')
   }
 
   render () {

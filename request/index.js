@@ -34,3 +34,11 @@ export async function getArticleByTag (tag, pageIndex = 0) {
     })
   }
 }
+
+export async function login (token) {
+  return axios({
+    url: `/article/login`,
+    method: 'POST',
+    data: {token}
+  })
+}
