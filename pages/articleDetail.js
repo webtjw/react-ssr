@@ -3,6 +3,7 @@ import Link from 'next/link'
 import NextDocument from '../components/NextDocument'
 import {compileMarkdown} from '../utils/article'
 import {getArticleDetail} from '../request'
+import '../components/style/article-detail.scss'
 
 class ArticleDetail extends Component {
   static async getInitialProps (context) {
