@@ -12,3 +12,11 @@ export async function getArchive (index = 0, size = 20) {
     data: {index, size}
   })
 }
+
+export async function getArticleDetail (id) {
+  return /^[0-9]+$/.test(id) ? axios({
+    url: `/article/data`,
+    method: 'POST',
+    data: {id}
+  }) : null;
+}
