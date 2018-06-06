@@ -25,7 +25,7 @@ class Article extends Component {
   render () {
     const {articles} = this.props
 
-    return <NextDocument title="Robin · 文章归档">
+    return <NextDocument title="文章归档 · Robin">
       <div className="main-article">
       {
         articles.map(monthItem => {

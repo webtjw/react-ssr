@@ -20,3 +20,17 @@ export async function getArticleDetail (id) {
     data: {id}
   }) : null;
 }
+
+export async function getAllTags () {
+  return axios.get('/article/allTags')
+}
+
+export async function getArticleByTag (tag, pageIndex = 0) {
+  if (tag && typeof pageIndex === 'number' && pageIndex >= 0) {
+    return axios({
+      url: '/article/getArticleByTag',
+      method: 'POST',
+      data: {tag, pageIndex}
+    })
+  }
+}
