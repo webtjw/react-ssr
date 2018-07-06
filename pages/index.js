@@ -6,11 +6,11 @@ import {compileMarkdown} from '../utils/article'
 import '../components/style/index.scss'
 
 export default class Index extends Component {
-  static async getInitialProps() {
+  static async getInitialProps({asPath, pathname, query}) {
     // 首次初始化页面，该函数只会在服务端执行，会得到一个 context 传参
     // 当页面通过 Link 组件导航到另一个路由时，客户端的 getInitialProps 才会被执行，这时候会传一个路由信息对象，和 context 是不一样的，需要做区别对待
-    
-    const props = {}
+    const route = {path: asPath, pagePath: pathname, query}
+    const props = {route}
     // 获取远程文章数据
     const homeDatas = await getHomeArticle()
     if (homeDatas.success && homeDatas.data && homeDatas.data.length) Object.assign(props, {articles: homeDatas.data})
@@ -40,9 +40,9 @@ export default class Index extends Component {
   }
 
   render () {
-    const {articles} = this.props
+    const {articles, route} = this.props
 
-    return <NextDocument title="Robin · 技术小站">
+    return <NextDocument title="Robin · 技术小站" route={route}>
       <div className="main-index">
         {this.buildArticleJSX(articles)}
       </div>
