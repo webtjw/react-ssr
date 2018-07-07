@@ -13,7 +13,6 @@ export default class Blog extends Component {
     const {route} = this.props
     let title = '',
       component = null
-    console.log(route)
     return {title, component}
   }
 
