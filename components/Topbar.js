@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import Link from 'next/link'
 import './style/topbar.scss'
 
@@ -10,13 +11,16 @@ const topNavs = [
 ]
 
 class Topbar extends Component {
+  static propTypes = {
+    path: PropTypes.string.isRequired
+  }
 
   getActiveIndex () {
-    // const {path} = this.props.route
-    // if (path.startsWith('/article')) return 2
-    // else if (path.startsWith('/tag')) return 3
-    // else if (path.startsWith('/about')) return 4
-    // else return 1
+    const {path} = this.props
+    if (path.startsWith('/article')) return 2
+    else if (path.startsWith('/tag')) return 3
+    else if (path.startsWith('/about')) return 4
+    else return 1
     return 1
   }
   

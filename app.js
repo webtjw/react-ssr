@@ -19,16 +19,14 @@ const luanchApp = async () => {
   app.get('*', (req, res) => {
     const {url} = req
 
-    // if (url === '/') nextApp.render(req, res, '/index')
-    // else if (/\/article\/[0-9]+/.test(url)) {
-    //   nextApp.render(req, res, '/articleDetail', {id: url.match(/\/article\/([0-9]+)/)[1]})
-    // }
-    // else if (/^\/tag\/(\S+)$/.test(url)) {
-    //   nextApp.render(req, res, '/tagItem', {type: url.match(/^\/tag\/(\S+)$/)[1]})
-    // }
-    // else requestHandler(req, res, url)
-    if (url.startsWith('/_next') || url.startsWith('/static')) requestHandler(req, res, url)
-    else nextApp.render(req, res, '/blog')
+    if (url === '/') nextApp.render(req, res, '/index')
+    else if (/\/article\/[0-9]+/.test(url)) {
+      nextApp.render(req, res, '/articleDetail', {id: url.match(/\/article\/([0-9]+)/)[1]})
+    }
+    else if (/^\/tag\/(\S+)$/.test(url)) {
+      nextApp.render(req, res, '/tagItem', {type: url.match(/^\/tag\/(\S+)$/)[1]})
+    }
+    else requestHandler(req, res, url)
   })
 
   app.listen(port, err => {if (err) throw err})

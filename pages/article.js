@@ -4,8 +4,9 @@ import ArticleSchemaItem from '../components/ArticleSchemaItem'
 import {getArchive} from '../request'
 
 class Article extends Component {
-  static async getInitialProps() {
-    const props = {}
+  static async getInitialProps(context) {
+    const {asPath, pathname, query} = context
+    const props = {route: {path: asPath, query}}
     // 获取远程文章数据
     const archiveDatas = await getArchive()
     if (archiveDatas.success && archiveDatas.data) {
@@ -23,9 +24,9 @@ class Article extends Component {
   }
 
   render () {
-    const {articles} = this.props
+    const {articles, route} = this.props
 
-    return <NextDocument title="文章归档 · Robin">
+    return <NextDocument title="文章归档 · Robin" route={route}>
       <div className="main-article">
       {
         articles.map(monthItem => {

@@ -11,11 +11,12 @@ class NextDocument extends Document {
   static propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string,
-    keyword: PropTypes.string
+    keyword: PropTypes.string,
+    route: PropTypes.object.isRequired
   }
 
   render () {
-    const {title, description, keyword} = this.props
+    const {title, description, keyword, route: {path}} = this.props
 
     return <div id="app">
     <Head>
@@ -32,7 +33,7 @@ class NextDocument extends Document {
       <title key="title">{title}</title>
     </Head>
 
-    <Topbar />
+    <Topbar path={path} />
 
     <div className="wrapper">
       {this.props.children}
