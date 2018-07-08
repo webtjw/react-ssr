@@ -7,6 +7,13 @@ import {login} from '../request'
 import '../components/style/login.scss'
 
 class Login extends Component {
+  static async getInitialProps (context) {
+    const {asPath, pathname, query} = context
+    const props = {route: {path: asPath, query}}
+
+    return props
+  }
+
   constructor () {
     super()
 
@@ -29,8 +36,9 @@ class Login extends Component {
 
   render () {
     const value = this.state && this.state.token !== null ? this.state.token : ''
+    const {route} = this.props
 
-    return <NextDocument title="开发者 · Robin">
+    return <NextDocument title="开发者 · Robin" route={route}>
       <div className="login-page p-t-40 a-c">
         <h3 className="font-18 m-v-40">开发者入口</h3>
         <RobinInput

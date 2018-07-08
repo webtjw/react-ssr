@@ -5,9 +5,9 @@ import {getAllTags} from '../request'
 import '../components/style/tag.scss'
 
 class Tag extends Component {
-  static async getInitialProps () {
-    // s + c
-    const props = {}
+  static async getInitialProps (context) {
+    const {asPath, pathname, query} = context
+    const props = {route: {path: asPath, query}}
   
     const result = await getAllTags()
     if (result.success) props.tags = result.data
@@ -16,9 +16,9 @@ class Tag extends Component {
   }
 
   render () {
-    const {tags} = this.props
+    const {tags, route} = this.props
 
-    return <NextDocument title="标签 · Robin">
+    return <NextDocument title="标签 · Robin" route={route}>
       <div className="p-t-40">
       {
         tags.map(tag => {

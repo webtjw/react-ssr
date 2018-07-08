@@ -39,7 +39,6 @@ export default class Index extends Component {
 
   render () {
     const {articles, route} = this.props
-    console.log(this.props)
 
     return <NextDocument title="Robin · 技术小站" route={route}>
       <div className="main-index">

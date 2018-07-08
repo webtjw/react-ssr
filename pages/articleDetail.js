@@ -7,8 +7,8 @@ import '../components/style/article-detail.scss'
 
 class ArticleDetail extends Component {
   static async getInitialProps (context) {
-    // 这个页面是否存在 s c 都能渲染的情况？？？？
-    const props = {}
+    const {asPath, pathname, query} = context
+    const props = {route: {path: asPath, query}}
     // 获取 id 再拉取远程数据
     const id = context.req.url.match(/\/([0-9]+)$/)[1]
     const result = await getArticleDetail(id)
@@ -19,9 +19,9 @@ class ArticleDetail extends Component {
   }
 
   render () {
-    const {article, article: {id}} = this.props
+    const {article, article: {id}, route} = this.props
 
-    return <NextDocument title="文章标题" description="文章描述" keyword="文章关键词">
+    return <NextDocument title="文章标题" description="文章描述" keyword="文章关键词" route={route}>
       <article className="article-detail p-v-30 m-v-20">
         <h1 className="font-24">{article.title} {true ? <Link href={`/article/edit/${id}`}><a>edit</a></Link> : null}</h1>
         <div className="article-attrs font-13 m-t-30 m-b-40" data-flex="cross:center">
