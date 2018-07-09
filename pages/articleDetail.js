@@ -7,8 +7,10 @@ import '../components/style/article-detail.scss'
 
 class ArticleDetail extends Component {
   static async getInitialProps (context) {
-    const {asPath, pathname, query} = context
+    const {asPath, query, req} = context
     const props = {route: {path: asPath, query}}
+    // 根据 cookies 字段判断请求者是否有登陆信息（后续可以请求后端服务验证身份），如有则可开放开发者模式
+    props.isDeveloper = req.headers.cookie.indexOf('authentication') > -1
     // 获取 id 再拉取远程数据
     const id = context.req.url.match(/\/([0-9]+)$/)[1]
     const result = await getArticleDetail(id)
@@ -19,11 +21,11 @@ class ArticleDetail extends Component {
   }
 
   render () {
-    const {article, article: {id}, route} = this.props
+    const {article, article: {id}, route, isDeveloper} = this.props
 
     return <PageWrapper title="文章标题" description="文章描述" keyword="文章关键词" route={route}>
       <article className="article-detail p-v-30 m-v-20">
-        <h1 className="font-24">{article.title} {true ? <Link href={`/article/edit/${id}`}><a>edit</a></Link> : null}</h1>
+        <h1 className="font-24">{article.title} {isDeveloper ? <Link href={`/article/edit/${id}`}><a>edit</a></Link> : null}</h1>
         <div className="article-attrs font-13 m-t-30 m-b-40" data-flex="cross:center">
           <div className="m-r-40">{article.time}</div>
           {

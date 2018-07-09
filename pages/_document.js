@@ -10,7 +10,6 @@ export default class MyDocument extends Document {
     return (
       <html>
         <Head>
-          <meta httpEquiv="content-type" content="text/html;charset=utf-8" />
           <meta httpEquiv="X-UA-Compatible" content="IE=Edge" />
           <meta name="renderer" content="webkit" />
           <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
