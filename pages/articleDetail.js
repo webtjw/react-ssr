@@ -10,7 +10,7 @@ class ArticleDetail extends Component {
     const {asPath, query, req} = context
     const props = {route: {path: asPath, query}}
     // 根据 cookies 字段判断请求者是否有登陆信息（后续可以请求后端服务验证身份），如有则可开放开发者模式
-    props.isDeveloper = req.headers.cookie.indexOf('authentication') > -1
+    props.isDeveloper = req && req.headers.cookie.indexOf('authentication') > -1
     // 获取 id 再拉取远程数据
     const id = context.req.url.match(/\/([0-9]+)$/)[1]
     const result = await getArticleDetail(id)
