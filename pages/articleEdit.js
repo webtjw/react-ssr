@@ -17,7 +17,6 @@ export default class ArticleEdit extends Component {
     this.state = {
       allTags: [],
       selectedTags: [],
-      addingTag: '',
       time: '',
       inputArticle: '',
       allTagsVisible: false
@@ -30,16 +29,35 @@ export default class ArticleEdit extends Component {
     this.setState({selectedTags})
   }
   selectTag (tagItem) {
-
-  }
-  showAllTags () {
-    
+    this.setState({selectedTags: this.state.selectedTags.concat(tagItem)})
   }
   hideAllTags () {
-    
+    setTimeout(() => this.setState({allTagsVisible: false}), 200)
   }
   addNewTag (event) {
-
+    // press Enter
+    if (event.keyCode === 13) {
+      const value = event.target.value
+      if (value && value.trim()) {
+        const {allTags, selectedTags} = this.state
+        // 是否已经有一样的标签了
+        const isAlreadyExisted = allTags.some(item => item.name === value)
+        if (isAlreadyExisted) {
+          alert('已存在同名标签')
+          return
+        }
+        // add
+        let comfitm = confirm(`添加标签 ${value}?`)
+        if (confirm) {
+          const addingTag = {id: value, name: value}
+          this.setState({
+            allTags: allTags.concat(addingTag),
+            selectedTags: selectedTags.concat(addingTag)
+          })
+          event.target.value = ''
+        }
+      }
+    }
   }
   async fetchAllTags () {
     const result = await getAllTags()
@@ -51,26 +69,26 @@ export default class ArticleEdit extends Component {
   }
   render () {
     const {
-      state: {inputArticle, selectedTags, addingTag, allTagsVisible, allTags},
+      state: {inputArticle, selectedTags, allTagsVisible, allTags},
       props: {route}
     } = this
 
     return <PageWrapper title="编辑文章 · Robin" route={route}>
       <div className="main-article-edit">
+        {/* tag */}
         <div className="p-v-10">
           <span>选择标签：</span>
           {/* selected tags */}
-          {selectedTags.map((tag, index) => <span className="tag-item pointer" key={tag} onClick={() => this.removeSelectedTag(index)}>{tag}</span>)}
+          {selectedTags.map((tag, index) => <span className="tag-item pointer" key={tag.id} onClick={() => this.removeSelectedTag(index)}>{tag.name}</span>)}
           <div className="tag-add inline-block relative">
-            <input type="text" value={addingTag}
+            <input type="text"
               onFocus={() => this.setState({allTagsVisible: true})}
               onBlur={() => this.hideAllTags()}
-              onKeyDown={e => this.addNewTag(e)}
-              onChange={e => this.setState({addingTag: e.target.value})} />
+              onKeyDown={e => this.addNewTag(e)} />
             <ul className={`select absolute${allTagsVisible ? '' : ' hide'}`}>
             {
               allTags.map(tag => {
-                return tags.indexOf(tag.name) === -1 ? <li key={tag.name} className="pointer" onClick={() => this.selectTag(tag)}>{tag.name}</li> : null
+                return selectedTags.indexOf(tag) === -1 ? <li key={tag.name} className="pointer" onClick={() => this.selectTag(tag)}>{tag.name}</li> : null
               })
             }
             </ul>

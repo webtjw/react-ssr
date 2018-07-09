@@ -6,7 +6,7 @@ const axiosRequest = axios.create({
 })
 
 axiosRequest.interceptors.response.use(response => {
-  if (response && response.data) return response.data
+  if (response && response.data && response.data.success && response.data.data) return response.data.data
   else return null
 }, error => {
   return Promise.resolve(error) // component AsyncTips has to receive result even if the request fails.
