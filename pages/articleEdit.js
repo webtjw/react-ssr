@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import PageWrapper from '../components/PageWrapper'
 import {getAllTags} from '../request'
+import RobinEditor from '../components/RobinEditor'
 import '../components/style/article-edit.scss'
 
 export default class ArticleEdit extends Component {
@@ -63,6 +64,25 @@ export default class ArticleEdit extends Component {
     const result = await getAllTags()
     if (Array.isArray(result)) this.setState({allTags: result})
   }
+  async uploadImage (img, callback) {
+    const result = await uploadFile(img)
+    callback && callback(result.success ? result.data : false)
+  }
+  async saveArticle (article) {
+    const {id} = this.props.match.params
+    const {tags, time} = this.state
+
+    if (id) article.id = id
+    if (tags.length > 0 && article.title && article.codeText) {
+      article.tags = tags
+      if (time) article.time = time
+      const {success, data} = await saveArticle(article)
+      if (success && data && data.id) {
+        utils.addSideTip({text: '保存成功', type: 'success'})
+        this.props.history.push(`/article/detail/${data.id}`)
+      }
+    }
+  }
 
   componentDidMount () {
     this.fetchAllTags()
@@ -78,8 +98,9 @@ export default class ArticleEdit extends Component {
         {/* tag */}
         <div className="p-v-10">
           <span>选择标签：</span>
-          {/* selected tags */}
-          {selectedTags.map((tag, index) => <span className="tag-item pointer" key={tag.id} onClick={() => this.removeSelectedTag(index)}>{tag.name}</span>)}
+          {
+            selectedTags.map((tag, index) => <span className="tag-item pointer" key={tag.id} onClick={() => this.removeSelectedTag(index)}>{tag.name}</span>)
+          }
           <div className="tag-add inline-block relative">
             <input type="text"
               onFocus={() => this.setState({allTagsVisible: true})}
@@ -94,6 +115,11 @@ export default class ArticleEdit extends Component {
             </ul>
           </div>
         </div>
+        <RobinEditor 
+          onUpload={(file, cb) => this.uploadImage(file, cb)}
+          value={inputArticle}
+          updateValue={(val, cb)=> this.setState({inputArticle: val}, () => cb && cb())}
+          onSave={d => this.saveArticle(d)} />
       </div>
     </PageWrapper>
   }
