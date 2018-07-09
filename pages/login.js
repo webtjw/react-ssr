@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import Link from 'next/link'
 import Router from 'next/router'
-import NextDocument from '../components/NextDocument'
+import PageWrapper from '../components/PageWrapper'
 import RobinInput from '../components/common/RobinInput'
 import {login} from '../request'
 import '../components/style/login.scss'
@@ -38,7 +38,7 @@ class Login extends Component {
     const value = this.state && this.state.token !== null ? this.state.token : ''
     const {route} = this.props
 
-    return <NextDocument title="开发者 · Robin" route={route}>
+    return <PageWrapper title="开发者 · Robin" route={route}>
       <div className="login-page p-t-40 a-c">
         <h3 className="font-18 m-v-40">开发者入口</h3>
         <RobinInput
@@ -49,7 +49,7 @@ class Login extends Component {
           placeholder="请输入你的开发者口令"
           onEnter={() => this.checkSubmit()} />
       </div>
-    </NextDocument>
+    </PageWrapper>
   }
 }
 

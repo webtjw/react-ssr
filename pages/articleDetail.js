@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Link from 'next/link'
-import NextDocument from '../components/NextDocument'
+import PageWrapper from '../components/PageWrapper'
 import {compileMarkdown} from '../utils/article'
 import {getArticleDetail} from '../request'
 import '../components/style/article-detail.scss'
@@ -21,7 +21,7 @@ class ArticleDetail extends Component {
   render () {
     const {article, article: {id}, route} = this.props
 
-    return <NextDocument title="文章标题" description="文章描述" keyword="文章关键词" route={route}>
+    return <PageWrapper title="文章标题" description="文章描述" keyword="文章关键词" route={route}>
       <article className="article-detail p-v-30 m-v-20">
         <h1 className="font-24">{article.title} {true ? <Link href={`/article/edit/${id}`}><a>edit</a></Link> : null}</h1>
         <div className="article-attrs font-13 m-t-30 m-b-40" data-flex="cross:center">
@@ -38,7 +38,7 @@ class ArticleDetail extends Component {
         <div dangerouslySetInnerHTML={compileMarkdown(article.codeText || '')} className="article-compile"></div>
         <div className="a-c font-20 p-v-40">（完）</div>
       </article>
-    </NextDocument>
+    </PageWrapper>
   }
 }
 

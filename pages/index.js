@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Link from 'next/link'
-import NextDocument from '../components/NextDocument'
+import PageWrapper from '../components/PageWrapper'
 import {getHomeArticle} from '../request'
 import {compileMarkdown} from '../utils/article'
 import '../components/style/index.scss'
@@ -40,10 +40,10 @@ export default class Index extends Component {
   render () {
     const {articles, route} = this.props
 
-    return <NextDocument title="Robin · 技术小站" route={route}>
+    return <PageWrapper title="Robin · 技术小站" route={route}>
       <div className="main-index">
         {this.buildArticleJSX(articles)}
       </div>
-    </NextDocument>
+    </PageWrapper>
   }
 }

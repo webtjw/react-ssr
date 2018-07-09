@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Link from 'next/link'
-import NextDocument from '../components/NextDocument'
+import PageWrapper from '../components/PageWrapper'
 import {getAllTags} from '../request'
 import '../components/style/tag.scss'
 
@@ -18,7 +18,7 @@ class Tag extends Component {
   render () {
     const {tags, route} = this.props
 
-    return <NextDocument title="标签 · Robin" route={route}>
+    return <PageWrapper title="标签 · Robin" route={route}>
       <div className="p-t-40">
       {
         tags.map(tag => {
@@ -30,7 +30,7 @@ class Tag extends Component {
         })
       }
       </div>
-    </NextDocument>
+    </PageWrapper>
   }
 }
 

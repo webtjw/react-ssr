@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import NextDocument from '../components/NextDocument'
+import PageWrapper from '../components/PageWrapper'
 import ArticleSchemaItem from '../components/ArticleSchemaItem'
 import {getArchive} from '../request'
 
@@ -26,7 +26,7 @@ class Article extends Component {
   render () {
     const {articles, route} = this.props
 
-    return <NextDocument title="文章归档 · Robin" route={route}>
+    return <PageWrapper title="文章归档 · Robin" route={route}>
       <div className="main-article">
       {
         articles.map(monthItem => {
@@ -43,7 +43,7 @@ class Article extends Component {
         })
       }
       </div>
-    </NextDocument>
+    </PageWrapper>
   }
 }
 
