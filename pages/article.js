@@ -26,7 +26,7 @@ class Article extends Component {
   render () {
     const {articles, route} = this.props
 
-    return <PageWrapper title="文章归档 · Robin" route={route}>
+    return <PageWrapper title="文章归档 · Robin" description="文章列表,技术文章列表" keyword="技术文章，文章列表" route={route}>
       <div className="main-article">
       {
         articles.map(monthItem => {

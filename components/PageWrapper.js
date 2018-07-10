@@ -19,8 +19,8 @@ class PageWrapper extends Component {
 
     return <div id="app">
       <Head>
-        <meta name="description" content={`${description || ''},前端技术,技术博客,javascript,前端技术学习,前端博客`}/>
-        <meta name="keyword" content={`${keyword || ''},前端技术`}/>
+        <meta name="description" content={`${description ? description + ',' : ''},前端技术,技术博客,javascript,前端技术学习,前端博客`} key="description" />
+        <meta name="keyword" content={`${keyword ? keyword + ',' : ''}前端技术`} key="keyword" />
 
         <title key="title">{title}</title>
       </Head>

@@ -18,7 +18,7 @@ class Tag extends Component {
   render () {
     const {tags, route} = this.props
 
-    return <PageWrapper title="标签 · Robin" route={route}>
+    return <PageWrapper title="标签 · Robin" description="标签分类,文章标签" keyword={(tags.length ? tags.map(item => item.name).join(',') + "," : '') + "标签分类,技术标签"} route={route}>
       <div className="p-t-40">
       {
         tags.map(tag => {
