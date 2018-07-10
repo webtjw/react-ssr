@@ -9,10 +9,10 @@ class Article extends Component {
     const props = {route: {path: asPath, query}}
     // 获取远程文章数据
     const archiveDatas = await getArchive()
-    if (archiveDatas.success && archiveDatas.data) {
+    if (archiveDatas) {
       // 分类排序
       const groupingData = []
-      const {recentMonth, lastMonth, recentYear, overAYear} = archiveDatas.data
+      const {recentMonth, lastMonth, recentYear, overAYear} = archiveDatas
       recentMonth && recentMonth.length && groupingData.push({title: '最近一个月', data: recentMonth})
       lastMonth && lastMonth.length && groupingData.push({title: '上个月', data: lastMonth})
       recentYear && recentYear.length && groupingData.push({title: '最近一年', data: recentYear})

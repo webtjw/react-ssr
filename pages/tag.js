@@ -9,8 +9,8 @@ class Tag extends Component {
     const {asPath, pathname, query} = context
     const props = {route: {path: asPath, query}}
   
-    const result = await getAllTags()
-    if (result.success) props.tags = result.data
+    const remoteTags = await getAllTags()
+    if (remoteTags) props.tags = remoteTags
 
     return props
   }

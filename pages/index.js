@@ -10,8 +10,8 @@ export default class Index extends Component {
     const {asPath, pathname, query} = context
     const props = {route: {path: asPath, query}}
     // 获取远程文章数据
-    const homeDatas = await getHomeArticle()
-    if (homeDatas.success && homeDatas.data && homeDatas.data.length) props.articles = homeDatas.data
+    const articles = await getHomeArticle()
+    if (articles) props.articles = articles
     
     return props
   }

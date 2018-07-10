@@ -13,10 +13,8 @@ class ArticleDetail extends Component {
     props.isDeveloper = req && req.headers.cookie && req.headers.cookie.indexOf('authentication') > -1
     // 获取 id 再拉取远程数据
     const {id} = query
-    const result = await getArticleDetail(id)
-    if (result.success) {
-      props.article = result.data
-    }
+    const articleDetail = await getArticleDetail(id)
+    if (articleDetail) props.article = articleDetail
     return props
   }
 
