@@ -112,17 +112,17 @@ export default class ArticleEdit extends Component {
         <div className="p-v-10">
           <span>选择标签：</span>
           {
-            selectedTags.map((tag, index) => <span className="tag-item pointer" key={tag} onClick={() => this.removeSelectedTag(index)}>{tag}</span>)
+            selectedTags.map((tag, index) => <span className="tag-item underline m-r-10 pointer" key={tag} onClick={() => this.removeSelectedTag(index)}>{tag}</span>)
           }
           <div className="tag-add inline-block relative">
-            <input type="text"
+            <input type="text" className="p-h-8"
               onFocus={() => this.setState({allTagsVisible: true})}
               onBlur={() => this.hideAllTags()}
               onKeyDown={e => this.addNewTag(e)} />
             <ul className={`select absolute${allTagsVisible ? '' : ' hide'}`}>
             {
               allTags.map(tag => {
-                return selectedTags.indexOf(tag.name) === -1 ? <li key={tag.name} className="pointer" onClick={() => this.selectTag(tag)}>{tag.name}</li> : null
+                return selectedTags.indexOf(tag.name) === -1 ? <li key={tag.name} className="pointer p-v-8 p-h-10" onClick={() => this.selectTag(tag)}>{tag.name}</li> : null
               })
             }
             </ul>

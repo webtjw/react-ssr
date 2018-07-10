@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import Link from 'next/link'
 import PageWrapper from '../components/PageWrapper'
 import {getAllTags} from '../request'
-import '../components/style/tag.scss'
 
 class Tag extends Component {
   static async getInitialProps (context) {
@@ -23,7 +22,7 @@ class Tag extends Component {
       {
         tags.map(tag => {
           return <Link href={`/tag/${tag.name}`} key={tag.id}>
-            <a className="tag-index-item m-r-30 m-b-20 iblock font-16">
+            <a className="tag-index-item m-r-30 m-b-20 iblock font-16 c-link">
               {tag.name}<span className="font-14">{`（${tag.number}）`}</span>
             </a>
           </Link>

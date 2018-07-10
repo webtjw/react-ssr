@@ -3,7 +3,6 @@ import Link from 'next/link'
 import PageWrapper from '../components/PageWrapper'
 import {compileMarkdown} from '../utils/article'
 import {getArticleDetail} from '../request'
-import '../components/style/article-detail.scss'
 
 class ArticleDetail extends Component {
   static async getInitialProps (context) {
@@ -20,7 +19,6 @@ class ArticleDetail extends Component {
 
   render () {
     const {article, article: {id, title}, route, isDeveloper} = this.props
-    console.log(article)
 
     return <PageWrapper title={title} description={title} keyword={title} route={route}>
       <article className="article-detail p-v-30 m-v-20">

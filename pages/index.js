@@ -23,10 +23,10 @@ export default class Index extends Component {
         <div className="m-t-30 m-b-40 font-14" data-flex="cross:center">{item.time}</div>
         <div dangerouslySetInnerHTML={compileMarkdown(item.description || item.codeText)} className="article-compile"></div>
         {
-          item.tags && item.tags.length ? <div className="attribute font-14" data-flex="dir:left cross:center">
+          item.tags && item.tags.length ? <div className="attribute m-t-40 m-b-20 font-14" data-flex="dir:left cross:center">
             <img className="svg-14" src="/static/svg/tag.svg" alt="tag"/>
             {
-              item.tags.map(tag => <Link key={tag} href={`/tag/${tag}`}><a className="tag-item">{tag}</a></Link>)
+              item.tags.map(tag => <Link key={tag} href={`/tag/${tag}`}><a className="underline m-l-10">{tag}</a></Link>)
             }
           </div> : null
         }

@@ -10,6 +10,7 @@ h1, h2, h3, h4, h5, h6 { font-weight: 300; font-family: "Segoe UI", "Microsoft J
 
 /* cursor */
 .pointer { cursor: pointer;}
+.underline { text-decoration: underline;}
 
 /* text-align */
 .a-r { text-align: right;}.a-c { text-align: center;}.a-l { text-align: left;}
@@ -25,6 +26,7 @@ h1, h2, h3, h4, h5, h6 { font-weight: 300; font-family: "Segoe UI", "Microsoft J
 .relative { position: relative;}.absolute { position: absolute;}.fixed { position: fixed;}
 
 /* color */
+.c-link { color: #22af6f;}
 .c-333 { color: #333;}.c-666 { color: #666;}.c-999 { color: #999;}
 
 /* svg size */

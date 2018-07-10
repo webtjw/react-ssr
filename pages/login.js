@@ -4,7 +4,6 @@ import Router from 'next/router'
 import PageWrapper from '../components/PageWrapper'
 import RobinInput from '../components/common/RobinInput'
 import {login} from '../request'
-import '../components/style/login.scss'
 
 class Login extends Component {
   static async getInitialProps (context) {
