@@ -6,6 +6,7 @@
   "author": "jiawei <webtjw@foxmail.com>",
   "license": "MIT",
   "scripts": {
+    "dev": "cross-env NODE_ENV=development node app",
     "build": "cross-env NODE_ENV=production next build",
     "start": "node app"
   },

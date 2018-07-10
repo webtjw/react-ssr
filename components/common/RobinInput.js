@@ -44,7 +44,7 @@ class RobinInput extends Component {
   render () {
     const {value, label, placeholder, width, type} = this.props
 
-    return <label className="iblock font-14 relative m-t-20" style={{width: this.setWidth(width)}}>
+    return <label className="robin-input iblock font-14 relative m-t-20" style={{width: this.setWidth(width)}}>
       <input type={type} value={value} autoComplete="new-password" onChange={e => this.updateValue(e)} className={(value ? 'not-empty ' : '') + 'font-14 p-h-10'} ref="input" onKeyPress={e => this.handleKeypress(e)} />
       <div className="hint-text absolute p-h-10">{value ? label : placeholder}</div>
     </label>

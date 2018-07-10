@@ -2,7 +2,7 @@ import Head from 'next/head'
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import Topbar from './Topbar'
-import 'flex.css/dist/data-flex.css'
+import './style/data-flex.scss'
 import './style/common.scss'
 import './style/article-preview.scss'
 
