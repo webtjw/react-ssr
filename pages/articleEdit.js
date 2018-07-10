@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PageWrapper from '../components/PageWrapper'
-import {getAllTags} from '../request'
+import {getAllTags, getArticleDetail, saveArticle, uploadFile} from '../request'
 import RobinEditor from '../components/RobinEditor'
 import '../components/style/article-edit.scss'
 
@@ -30,7 +30,7 @@ export default class ArticleEdit extends Component {
     this.setState({selectedTags})
   }
   selectTag (tagItem) {
-    this.setState({selectedTags: this.state.selectedTags.concat(tagItem)})
+    this.setState({selectedTags: this.state.selectedTags.concat(tagItem.name)})
   }
   hideAllTags () {
     setTimeout(() => this.setState({allTagsVisible: false}), 200)
@@ -53,7 +53,7 @@ export default class ArticleEdit extends Component {
           const addingTag = {id: value, name: value}
           this.setState({
             allTags: allTags.concat(addingTag),
-            selectedTags: selectedTags.concat(addingTag)
+            selectedTags: selectedTags.concat(addingTag.name)
           })
           event.target.value = ''
         }
@@ -69,22 +69,35 @@ export default class ArticleEdit extends Component {
     callback && callback(result.success ? result.data : false)
   }
   async saveArticle (article) {
-    const {id} = this.props.match.params
-    const {tags, time} = this.state
+    const {id} = this.props.route.query
+    const {selectedTags, time} = this.state
 
     if (id) article.id = id
-    if (tags.length > 0 && article.title && article.codeText) {
-      article.tags = tags
+    if (selectedTags.length > 0 && article.title && article.codeText) {
+      article.tags = selectedTags
       if (time) article.time = time
-      const {success, data} = await saveArticle(article)
-      if (success && data && data.id) {
-        utils.addSideTip({text: '保存成功', type: 'success'})
-        this.props.history.push(`/article/detail/${data.id}`)
+      const result = await saveArticle(article)
+      if (result) {
+        alert('保存成功')
+        this.props.url.replace(`/article/${result.id}`)
+      }
+    }
+  }
+  async fetchEditArticleData () {
+    if (this.props.route.query.id) {
+      const articleData = await getArticleDetail(this.props.route.query.id)
+      if (articleData) {
+        this.setState({
+          inputArticle: articleData.codeText,
+          selectedTags: articleData.tags,
+          time: articleData.time || ''
+        })
       }
     }
   }
 
   componentDidMount () {
+    this.fetchEditArticleData()
     this.fetchAllTags()
   }
   render () {
@@ -99,7 +112,7 @@ export default class ArticleEdit extends Component {
         <div className="p-v-10">
           <span>选择标签：</span>
           {
-            selectedTags.map((tag, index) => <span className="tag-item pointer" key={tag.id} onClick={() => this.removeSelectedTag(index)}>{tag.name}</span>)
+            selectedTags.map((tag, index) => <span className="tag-item pointer" key={tag} onClick={() => this.removeSelectedTag(index)}>{tag}</span>)
           }
           <div className="tag-add inline-block relative">
             <input type="text"
@@ -109,7 +122,7 @@ export default class ArticleEdit extends Component {
             <ul className={`select absolute${allTagsVisible ? '' : ' hide'}`}>
             {
               allTags.map(tag => {
-                return selectedTags.indexOf(tag) === -1 ? <li key={tag.name} className="pointer" onClick={() => this.selectTag(tag)}>{tag.name}</li> : null
+                return selectedTags.indexOf(tag.name) === -1 ? <li key={tag.name} className="pointer" onClick={() => this.selectTag(tag)}>{tag.name}</li> : null
               })
             }
             </ul>

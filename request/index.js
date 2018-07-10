@@ -42,3 +42,24 @@ export async function login (token) {
     data: {token}
   })
 }
+
+export async function saveArticle (article) {
+  return axios({
+    url: `/article/save`,
+    method: 'POST',
+    data: article
+  })
+}
+
+export async function uploadFile (file) {
+  const formdata = new FormData()
+  formdata.append('file', file)
+
+  return axios({
+    url: '/commonApi/upload',
+    baseURL: '',
+    method: 'POST',
+    data: formdata,
+    headers: {'Content-Type': 'multipart/form-data'}
+  })
+}

@@ -28,7 +28,7 @@ function preProcess (code) {
   // get title
   const regTitle = code.match(/^#t\s+([^\n]+)\n*/)
   if (Array.isArray(regTitle) && regTitle[1]) {
-    article.title = regTitle[1].replace(/\s*$/, '')
+    article.title = regTitle[1].replace(/\s*$/, '') || '未设置标题'
   }
   // get the article content and description which excludes title
   let mdWithoutTitle = code

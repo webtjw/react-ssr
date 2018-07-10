@@ -123,17 +123,16 @@ class RobinEditor extends Component {
         textarea.selectionEnd = focusEnd
         textarea.focus()
       }
-      this.compileMarkdown(value, 1)
+      this.compileMarkdown(value)
     })
   }
   compileMarkdown (md) {
     const {compileTimer} = this
 
     if (!compileTimer) {
-      const compileResult = compileMarkdown(md)
+      const compileResult = compileMarkdown(md, true)
       this.compileTimer = setTimeout(() => this.setState({compileText: compileResult.__html}), compileDelay)
-    }
-    else {
+    } else {
       clearTimeout(this.compileTimer)
       this.compileTimer = null
       this.compileMarkdown(md)
