@@ -3,7 +3,6 @@ import Link from 'next/link'
 import PageWrapper from '../components/PageWrapper'
 import {getArticleByTag} from '../request'
 import ArticleSchemaItem from '../components/ArticleSchemaItem'
-import '../components/style/tag.scss'
 
 class TagItem extends Component {
   static async getInitialProps (context) {
