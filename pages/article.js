@@ -11,32 +11,31 @@ class Article extends Component {
     const archiveDatas = await getArchive()
     if (archiveDatas) {
       // 分类排序
-      const groupingData = []
-      const {recentMonth, lastMonth, recentYear, overAYear} = archiveDatas
-      recentMonth && recentMonth.length && groupingData.push({title: '最近一个月', data: recentMonth})
-      lastMonth && lastMonth.length && groupingData.push({title: '上个月', data: lastMonth})
-      recentYear && recentYear.length && groupingData.push({title: '最近一年', data: recentYear})
-      overAYear && overAYear.length && groupingData.push({title: '一年前', data: overAYear})
-
-      Object.assign(props, {articles: groupingData})
+      const monthArticles = archiveDatas.map(item => {
+        const data = item.month.split('-')
+        item.monthText = `${data[0]}年${data[1]}月`
+        return item
+      })
+      
+      Object.assign(props, {monthArticles})
     }
     return props
   }
 
   render () {
-    const {articles, route} = this.props
+    const {monthArticles, route} = this.props
 
     return <PageWrapper title="文章归档 · Robin" description="文章列表,技术文章列表" keyword="技术文章，文章列表" route={route}>
       <div className="main-article">
       {
-        articles.map(monthItem => {
-          return <div className="month-item" key={monthItem.title}>
+        monthArticles.map(monthItem => {
+          return <div className="month-item" key={monthItem.monthText}>
             <h1 className="title font-20 p-t-40 p-b-30">
-              <span style={{borderBottom: '1px solid #666', lineHeight: 1.2}}>"{monthItem.title}"</span>
+              <span style={{borderBottom: '1px solid #666', lineHeight: 1.2}}>"{monthItem.monthText}"</span>
             </h1>
             <ul>
             {
-              monthItem.data.map(article => <ArticleSchemaItem article={article} key={article.id} />)
+              monthItem.list.map(article => <ArticleSchemaItem article={article} key={article.id} />)
             }
             </ul>
           </div>
