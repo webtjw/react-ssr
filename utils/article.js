@@ -1,7 +1,38 @@
 import MarkdownIt from 'markdown-it'
+import markdownItAnchor from 'markdown-it-anchor'
+import markdownItTitle from 'markdown-it-title'
 
 const markdownCompiler = new MarkdownIt({html: true})
+// plugin: header
+markdownCompiler.use(markdownItAnchor, {
+  level: 2,
+  slugify: s => `${s.replace(/\s/g, '')}`,
+  callback: (token, slug) => compileMarkdown2.addTitle && compileMarkdown2.addTitle(slug)
+})
+// plugin: title
+markdownCompiler.use(markdownItTitle)
+
 const moreString = '<!-- more -->'
+
+const compileMarkdown2 = function (value, options = {}) {
+  const env = {}
+  const {getTitle} = options
+  // 初始化
+  compileMarkdown2.addTitle = getTitle || null // 由于 markdown-it-anchor 限制，只能一个一个加，已提交 pr
+  // compile
+  const compileResult = markdownCompiler.render(value, env)
+
+  return {
+    title: env.title,
+    content: `<div class="markdown-preview">
+      ${compileResult}
+    </div>`
+  }
+}
+
+export {
+  compileMarkdown2
+}
 
 export function compileMarkdown (md, isEdit) {
   const {title, description, codeText, body} = preProcess(md)
