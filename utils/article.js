@@ -5,7 +5,7 @@ import markdownItTitle from 'markdown-it-title'
 const markdownCompiler = new MarkdownIt({html: true})
 // plugin: header
 markdownCompiler.use(markdownItAnchor, {
-  level: 2,
+  level: 2, // h1 for title, h2-h6 for headers
   slugify: s => `${s.replace(/\s/g, '')}`,
   callback: (token, slug) => compileMarkdown2.addTitle && compileMarkdown2.addTitle(slug)
 })

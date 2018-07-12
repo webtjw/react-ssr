@@ -25,8 +25,8 @@ class Login extends Component {
     const {token} = this.state
     if (typeof token === 'string' && token.trim()) {
       const result = await login(token)
-      if (result && result.success && result.data) {
-        alert(`欢迎登入，${result.data}`)
+      if (result) {
+        alert(`欢迎登入，${result}`)
         Router.back()
       }
       else alert('登入失败')

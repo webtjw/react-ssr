@@ -22,7 +22,7 @@ class ArticleDetail extends Component {
 
     return <PageWrapper title={title} description={title} keyword={title} route={route}>
       <article className="article-detail p-v-30 m-v-20">
-        <h1 className="font-24">{article.title} {isDeveloper ? <Link href={`/article/edit/${id}`}><a>edit</a></Link> : null}</h1>
+        <h1 className="font-24">{article.title} {isDeveloper ? <Link href={`/article/edit/${id}`}><a className="c-link">edit</a></Link> : null}</h1>
         <div className="article-attrs font-13 m-t-30 m-b-40" data-flex="cross:center">
           <div className="m-r-40">{article.time}</div>
           {
