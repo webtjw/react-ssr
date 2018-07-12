@@ -3,7 +3,7 @@ import Link from 'next/link'
 import PageWrapper from '../components/PageWrapper'
 import {getHomeArticle} from '../request'
 import {compileMarkdown} from '../utils/article'
-import '../components/style/index.scss'
+import '../components/style/index.less'
 
 export default class Index extends Component {
   static async getInitialProps(context) {

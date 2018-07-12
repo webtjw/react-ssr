@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
-import './style/topbar.scss'
+import './style/topbar.less'
 
 const topNavs = [
   {name: '首页', path: '/index'},

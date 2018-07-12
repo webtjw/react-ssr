@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {compileMarkdown} from '../../utils/article'
-import './assets/RobinEditor.scss'
+import './assets/RobinEditor.less'
 
 // settings
 let notFullEditHeight = 0

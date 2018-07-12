@@ -2,9 +2,9 @@ import Head from 'next/head'
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import Topbar from './Topbar'
-import './style/data-flex.scss'
-import './style/common.scss'
-import './style/article-preview.scss'
+import './style/data-flex.less'
+import './style/common.less'
+import './style/article-preview.less'
 
 class PageWrapper extends Component {
   static propTypes = {

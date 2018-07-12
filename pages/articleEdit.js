@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PageWrapper from '../components/PageWrapper'
 import {getAllTags, getArticleDetail, saveArticle, uploadFile} from '../request'
 import RobinEditor from '../components/RobinEditor'
-import '../components/style/article-edit.scss'
+import '../components/style/article-edit.less'
 
 export default class ArticleEdit extends Component {
   static async getInitialProps (context) {

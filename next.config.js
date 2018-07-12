@@ -1,11 +1,11 @@
 const withCSS = require('@zeit/next-css')
-const withSass = require('@zeit/next-sass')
+const withLess = require('@zeit/next-less')
 const commonsChunkConfig = require('@zeit/next-css/commons-chunk-config')
 
-const config = withCSS(withSass({
+const config = withCSS(withLess({
   webpack: (config, {isServer}) => {
     if (!isServer) {
-      config = commonsChunkConfig(config, /\.(sass|scss|css)$/)
+      config = commonsChunkConfig(config, /\.(less|css)$/)
     }
     return config
   }

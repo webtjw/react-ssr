@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import Router from 'next/router'
 import PropTypes from 'prop-types'
-import './style/articleSchemaItem.scss'
+import './style/articleSchemaItem.less'
 
 class ArticleSchemaItem extends Component {
   static propTypes = {

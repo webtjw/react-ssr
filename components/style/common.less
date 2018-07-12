@@ -29,26 +29,23 @@ h1, h2, h3, h4, h5, h6 { font-weight: 300; font-family: "Segoe UI", "Microsoft J
 .c-link { color: #22af6f;}
 .c-333 { color: #333;}.c-666 { color: #666;}.c-999 { color: #999;}
 
-/* svg size */
-.svg-14 { width: 14px; height: 14px;}.svg-16 { width: 16px; height: 16px;}
-
-// 边距，以 2 为步进
-@for $i from 1 through 30 {
-  $dis: $i * 2;
-  $valiable: ($dis * 1px);
-  .m-t-#{$dis} {margin-top: $valiable;}
-  .m-l-#{$dis} {margin-left: $valiable;}
-  .m-r-#{$dis} {margin-right: $valiable;}
-  .m-b-#{$dis} {margin-bottom: $valiable;}
-  .m-h-#{$dis} {margin-left: $valiable; margin-right: $valiable;}
-  .m-v-#{$dis} {margin-top: $valiable; margin-bottom: $valiable;}
-  .m-#{$dis} {margin-top: $valiable; margin-bottom: $valiable; margin-left: $valiable; margin-right: $valiable;}
-
-  .p-t-#{$dis} {padding-top: $valiable;}
-  .p-l-#{$dis} {padding-left: $valiable;}
-  .p-r-#{$dis} {padding-right: $valiable;}
-  .p-b-#{$dis} {padding-bottom: $valiable;}
-  .p-h-#{$dis} {padding-left: $valiable; padding-right: $valiable;}
-  .p-v-#{$dis} {padding-top: $valiable; padding-bottom: $valiable;}
-  .p-#{$dis} {padding-top: $valiable; padding-bottom: $valiable; padding-left: $valiable; padding-right: $valiable;}
+// svg size
+.loopSvgSize(@from, @max) when (@from <= @max) {
+  @size: @from * 1px;
+  .svg-@{from} {width: @size; height: @size;}
+  .loopSvgSize(@from + 1, @max);
 }
+.loopSvgSize(14, 18);
+
+// padding & margin
+.loopMarginPadding(@n, @i: 2) when (@i <= @n) {
+  @distance: @i * 1px;
+  .m-t-@{i} { margin-top: @distance;}.m-r-@{i} { margin-right: @distance;}.m-b-@{i} { margin-bottom: @distance;}.m-l-@{i} { margin-left: @distance;}
+  .m-h-@{i} { margin-left: @distance; margin-right: @distance;}.m-v-@{i} { margin-top: @distance; margin-bottom: @distance;}.m-@{i} { margin: @distance;}
+
+  .p-t-@{i} { padding-top: @distance;}.p-r-@{i} { padding-right: @distance;}.p-b-@{i} { padding-bottom: @distance;}.p-l-@{i} { padding-left: @distance;}
+  .p-h-@{i} { padding-left: @distance; padding-right: @distance;}.p-v-@{i} { padding-top: @distance; padding-bottom: @distance;}.p-@{i} { padding: @distance;}
+
+  .loopMarginPadding(@n, @i + 2);
+}
+.loopMarginPadding(40);
