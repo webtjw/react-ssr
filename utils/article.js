@@ -2,7 +2,7 @@ import MarkdownIt from 'markdown-it'
 import markdownItAnchor from 'markdown-it-anchor'
 import markdownItTitle from 'markdown-it-title'
 
-const markdownCompiler = new MarkdownIt({html: true})
+const markdownCompiler = new MarkdownIt({html: true, typographer: true})
 // plugin: header
 markdownCompiler.use(markdownItAnchor, {
   level: 2, // h1 for title, h2-h6 for headers
@@ -15,6 +15,7 @@ markdownCompiler.use(markdownItTitle)
 const moreString = '<!-- more -->'
 
 const compileMarkdown2 = function (value, options = {}) {
+  const description = !!options.description || false // should only render the part before '<!-- more -->'
   const env = {}
   const {getTitle} = options
   // 初始化
@@ -24,9 +25,7 @@ const compileMarkdown2 = function (value, options = {}) {
 
   return {
     title: env.title,
-    content: `<div class="markdown-preview">
-      ${compileResult}
-    </div>`
+    bodyHTML: <div className="markdown-compile" dangerouslySetInnerHTML={{__html: compileResult}}></div>
   }
 }
 
