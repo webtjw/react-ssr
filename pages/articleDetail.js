@@ -4,6 +4,7 @@ import PageWrapper from '../components/PageWrapper'
 import {compileMarkdown} from '../utils/article'
 import compileMarkdown2 from '../utils/markdownCompiler'
 import {getArticleDetail} from '../request'
+console.log(!!compileMarkdown2)
 
 class ArticleDetail extends Component {
   static async getInitialProps (context) {
@@ -20,8 +21,6 @@ class ArticleDetail extends Component {
 
   render () {
     const {article, article: {id, title}, route, isDeveloper} = this.props
-    const {compileCode} = compileMarkdown2(article.codeText)
-    console.log(compileCode)
 
     return <PageWrapper title={title} description={title} keyword={title} route={route}>
       <article className="article-detail p-v-30 m-v-20">
@@ -37,7 +36,7 @@ class ArticleDetail extends Component {
             </div> : null
           }
         </div>
-        <div dangerouslySetInnerHTML={{__html: compileCode}} className="article-compile"></div>
+        <div dangerouslySetInnerHTML={compileMarkdown(article.codeText || '')} className="article-compile"></div>
         <div className="a-c font-20 p-v-40">（完）</div>
       </article>
     </PageWrapper>

@@ -3,43 +3,32 @@ import markdownItAnchor from 'markdown-it-anchor'
 
 const markdownCompiler = new MarkdownIt({html: false, typographer: true})
 // plugin: header
-let headers = []
-const position = {
-  false: 'push',
-  true: 'unshift'
-}
 markdownCompiler.use(markdownItAnchor, {
-  level: [1, 2],
+  level: [1, 2, 3],
   slugify: headerString => `${headerString.replace(/\s/g, '')}`,
   permalink: true,
-  renderPermalink:  (slug, opts, state, idx) => {
-    const space = () => Object.assign(new state.Token('text', '', 0), {content: ' '})
-    const linkTokens = [
-      Object.assign(new state.Token('link_open', 'a', 1), {
-        attrs: [
-          ['class', opts.permalinkClass],
-          ['href', opts.permalinkHref(slug, state)],
-          ['aria-hidden', 'true']
-        ]
-      }),
-      Object.assign(new state.Token('html_block', '', 0), { content: 'caonima' }),
-      new state.Token('link_close', 'a', -1)
-    ]
-
-    // `push` or `unshift` according to position option.
-    // Space is at the opposite side.
-    linkTokens[position[!opts.permalinkBefore]](space())
-    state.tokens[idx + 1].children[position[opts.permalinkBefore]](...linkTokens)
-  },
-  callback: (token, slug) => {
-    // console.log('header archor')
-    // console.log('header archor', token, slug)
+  callback (token, {title, slug}) {
+    headerUtil.add(title, slug, token.tag)
   }
 })
-// title 语法： [title 我是一个标题 title]
+// title syntax： [title i am a header title]
 const regExtractTitle = /^\[title ([\s\S]+) title]\n/
-// antecedent 语法： [antecedent 前述 antecedent]
+// antecedent syntax： [antecedent i am an antecedent antecedent]
 const regExtractAntecedent = /\[antecedent ([^antecedent\]]+) antecedent]/g
+// header funcitons
+const headerUtil = {
+  headers: [],
+  maxLevel: null,
+  reset () {
+    headerUtil.headers = []
+  },
+  add (title, slug, level) {
+    if (!headerUtil.headers.length && level !== 'h1') throw new Error('first header must be h1')
+    else if (level === 'h1') headerUtil.headers.push({title, slug, children: []})
+    else if (level === 'h2') headerUtil.headers.slice(-1)[0].children.push({title, slug, children: []})
+    else if (level === 'h3') headerUtil.headers.slice(-1)[0].children.slice(-1)[0].children.push({title, slug})
+  }
+}
 
 
 function extractTitle (md) {
@@ -63,19 +52,10 @@ function extractAntecedent (md) {
 export default function compileMarkdown(md, options) {
   const {title, mdWithoutTitle} = extractTitle(md)
   const {antecedent, mdWithoutAntecedent} = extractAntecedent(mdWithoutTitle)
-  headers = [] // clear the headers array
+  headerUtil.reset()
   const compileCode = markdownCompiler.render(mdWithoutAntecedent)
-  debugger
+  const headers =headerUtil.headers
   return {
-    title, antecedent, compileCode,
-    headers: [
-      {
-        title: '',
-        id: '',
-        sub: [
-          {title: '', id: ''}
-        ]
-      }
-    ]
+    title, antecedent, compileCode, headers
   }
 }
