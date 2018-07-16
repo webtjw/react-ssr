@@ -2,7 +2,9 @@ import React, {Component} from 'react'
 import Link from 'next/link'
 import PageWrapper from '../components/PageWrapper'
 import {compileMarkdown} from '../utils/article'
+import compileMarkdown2 from '../utils/markdownCompiler'
 import {getArticleDetail} from '../request'
+console.log(!!compileMarkdown2)
 
 class ArticleDetail extends Component {
   static async getInitialProps (context) {
