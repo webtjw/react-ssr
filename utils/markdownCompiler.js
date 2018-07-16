@@ -14,7 +14,7 @@ markdownCompiler.use(markdownItAnchor, {
 // title syntax： [title i am a header title]
 const regExtractTitle = /^\[title ([\s\S]+) title]\n/
 // antecedent syntax： [antecedent i am an antecedent antecedent]
-const regExtractAntecedent = /\[antecedent ([^antecedent\]]+) antecedent]/g
+const regExtractAntecedent = /\[antecedent (((?!antecedent\]).)+) antecedent]/g
 // header funcitons
 const headerUtil = {
   headers: [],
@@ -23,7 +23,7 @@ const headerUtil = {
     headerUtil.headers = []
   },
   add (title, slug, level) {
-    if (!headerUtil.headers.length && level !== 'h1') throw new Error('first header must be h1')
+    if (!headerUtil.headers.length && level !== 'h1') console.warn('first header must be h1')
     else if (level === 'h1') headerUtil.headers.push({title, slug, children: []})
     else if (level === 'h2') headerUtil.headers.slice(-1)[0].children.push({title, slug, children: []})
     else if (level === 'h3') headerUtil.headers.slice(-1)[0].children.slice(-1)[0].children.push({title, slug})
@@ -41,11 +41,13 @@ function extractTitle (md) {
 }
 
 function extractAntecedent (md) {
-  let antecedent = null
+  let antecedent = []
   const mdWithoutAntecedent = md.replace(regExtractAntecedent, ($1, $2) => {
-    antecedent = (antecedent || '') + $2
+    // antecedent = (antecedent ? (antecedent + '\n\n') : antecedent) + $2
+    antecedent.push($2)
     return $2
   })
+  antecedent = antecedent.join('\n\n')
   return {antecedent, mdWithoutAntecedent}
 }
 
