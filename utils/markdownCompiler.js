@@ -2,6 +2,7 @@ import MarkdownIt from 'markdown-it'
 import markdownItAnchor from 'markdown-it-anchor'
 
 const markdownCompiler = new MarkdownIt({html: false, typographer: true})
+markdownCompiler.use(require('markdown-it-highlightjs'))
 // plugin: header
 markdownCompiler.use(markdownItAnchor, {
   level: [1, 2, 3],
