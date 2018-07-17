@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-// import {compileMarkdown} from '../../utils/article'
 import compileMarkdown from '../../utils/markdownCompiler'
 import './assets/RobinEditor.less'
 
@@ -131,10 +130,7 @@ class RobinEditor extends Component {
     const {compileTimer} = this
 
     if (!compileTimer) {
-      const {title, antecedent, compileCode, headers} = compileMarkdown(md)
-      console.log(title)
-      console.log(antecedent)
-      console.log(headers)
+      const {compileCode} = compileMarkdown(md)
       this.compileTimer = setTimeout(() => this.setState({compileText: compileCode}), compileDelay)
     } else {
       clearTimeout(this.compileTimer)
@@ -207,8 +203,7 @@ class RobinEditor extends Component {
   }
   checkSave () {
     const {value} = this.props
-    const compile = compileMarkdown(value, 1)
-    delete compile.__html
+    const compile = compileMarkdown(value)
     this.props.onSave(compile)
   }
 

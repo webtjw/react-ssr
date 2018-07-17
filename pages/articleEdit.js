@@ -68,14 +68,14 @@ export default class ArticleEdit extends Component {
     const result = await uploadFile(img)
     callback && callback(result.success ? result.data : false)
   }
-  async saveArticle (article) {
+  async saveArticle ({title, antecedent, compileCode}) {
     const {id} = this.props.route.query
-    const {selectedTags, time} = this.state
+    const {selectedTags, inputArticle} = this.state
+    const article = {code: inputArticle, antecedent, title}
 
     if (id) article.id = id
-    if (selectedTags.length > 0 && article.title && article.codeText) {
+    if (selectedTags.length > 0 && compileCode) {
       article.tags = selectedTags
-      if (time) article.time = time
       const result = await saveArticle(article)
       if (result) {
         alert('保存成功')
