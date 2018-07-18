@@ -34,10 +34,10 @@ class Topbar extends Component {
           <Link href={'/login'}><img className="avatar pointer" src='/ssrStatic/images/avatar.jpg' alt="Robin"/></Link>
         </div>
         <nav className="a-r font-15" data-flex-box="1" data-flex="dir:left main:right cross:center">
-          <Link href="/index" as="/"><a className={`nav-item relative ${activeIndex === 1 && 'active'}`}>首页</a></Link>
-          <Link href="/article"><a className={`nav-item relative ${activeIndex === 2 && 'active'}`}>文章</a></Link>
-          <Link href="/tag"><a className={`nav-item relative ${activeIndex === 3 && 'active'}`}>标签</a></Link>
-          <Link href="/about"><a className={`nav-item relative ${activeIndex === 4 && 'active'}`}>关于</a></Link>
+          <Link href="/index" as="/"><a className={`nav-item c-333 relative ${activeIndex === 1 && 'active'}`}>首页</a></Link>
+          <Link href="/article"><a className={`nav-item c-333 relative ${activeIndex === 2 && 'active'}`}>文章</a></Link>
+          <Link href="/tag"><a className={`nav-item c-333 relative ${activeIndex === 3 && 'active'}`}>标签</a></Link>
+          <Link href="/about"><a className={`nav-item c-333 relative ${activeIndex === 4 && 'active'}`}>关于</a></Link>
         </nav>
       </div>
     </div>

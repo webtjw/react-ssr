@@ -23,7 +23,7 @@ export default class Index extends Component {
       const {compileCode} = compileMarkdown(description || codeText)
       return <article key={item.id} className="index-article-item m-v-40">
         <h1><Link href={`/article/${item.id}`}><a className="font-24 c-333">{item.title}</a></Link></h1>
-        <div className="m-t-30 m-b-40 font-14" data-flex="cross:center">{item.time}</div>
+        <div className="m-t-30 m-b-40 font-14 c-999">{item.time}</div>
         <div dangerouslySetInnerHTML={{__html: compileCode}} className="article-compile"></div>
         {this.buildTags(item.tags)}
         <div className="more font-14 a-c">
@@ -36,7 +36,7 @@ export default class Index extends Component {
     if (tags.length) {
       return <div className="attribute m-t-40 m-b-20 font-14" data-flex="dir:left cross:center">
         <img className="svg-14" src="/static/svg/tag.svg" alt="tag"/>
-        {tags.map(tag => <Link key={tag} href={`/tag/${tag}`}><a className="underline m-l-10">{tag}</a></Link>)}
+        {tags.map(tag => <Link key={tag} href={`/tag/${tag}`}><a className="m-l-10 c-999 underline">{tag}</a></Link>)}
       </div>
     } else return null
   }
