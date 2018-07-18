@@ -4,8 +4,8 @@ import ArticleSchemaItem from '../components/ArticleSchemaItem'
 import {getArchive} from '../request'
 
 class Article extends Component {
-  static async getInitialProps(context) {
-    const {asPath, pathname, query} = context
+  static async getInitialProps(ctx) {
+    const {asPath, pathname, query} = ctx
     const props = {route: {path: asPath, query}}
     // 获取远程文章数据
     const archiveDatas = await getArchive()

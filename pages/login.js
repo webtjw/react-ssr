@@ -22,10 +22,11 @@ class Login extends Component {
   }
 
   async checkSubmit () {
-    const {token} = this.state
+    const {state: {token}, props: {updateDeveloper}} = this
     if (typeof token === 'string' && token.trim()) {
       const result = await login(token)
       if (result) {
+        updateDeveloper()
         alert(`欢迎登入，${result}`)
         Router.back()
       }
