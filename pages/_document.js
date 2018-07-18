@@ -17,7 +17,7 @@ export default class MyDocument extends Document {
           <link rel="shortcut icon" href="/ssrStatic/favicon.ico" type="image/x-icon" />
           <link rel="stylesheet" href="/_next/static/style.css" />
         </Head>
-        <body>
+        <body className="c-333">
           <Main />
           <NextScript />
         </body>

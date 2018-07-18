@@ -1,10 +1,13 @@
 .article-schema-item {
   transition: padding .2s ease;
+  .white { display: none;}
   &:hover {
-    background-color: #eee; padding: 18px 20px;
+    background-color: #22af6f; padding: 18px 20px;
 
-    .article-schema-title { color: #22af6f;}
+    .article-schema-title, .tag-another, .time { color: #fff;}
+    .white { display: block;}
+    .grey { display: none;}
   }
 
-  .tag-another:hover { text-decoration: underline; color: #22af6f;}
+  .tag-another:hover { text-decoration: underline; color: #fff;}
 }

@@ -13,7 +13,7 @@ class Article extends Component {
       // 分类排序
       const monthArticles = archiveDatas.map(item => {
         const data = item.month.split('-')
-        item.monthText = `${data[0]}年${data[1]}月`
+        item.monthText = `${data[0]}-${data[1]}`
         return item
       })
       
@@ -31,7 +31,7 @@ class Article extends Component {
         monthArticles.map(monthItem => {
           return <div className="month-item" key={monthItem.monthText}>
             <h1 className="title font-20 p-t-40 p-b-30">
-              <span style={{borderBottom: '1px solid #666', lineHeight: 1.2}}>"{monthItem.monthText}"</span>
+              <span>{monthItem.monthText}</span>
             </h1>
             <ul>
             {

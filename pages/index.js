@@ -2,12 +2,13 @@ import React, {Component} from 'react'
 import Link from 'next/link'
 import PageWrapper from '../components/PageWrapper'
 import {getHomeArticle} from '../request'
-import {compileMarkdown, compileMarkdown2} from '../utils/article'
+import compileMarkdown from '../utils/markdownCompiler'
 import '../components/style/index.less'
+import '../components/style/article-preview.less'
 
 export default class Index extends Component {
   static async getInitialProps(context) {
-    const {asPath, pathname, query} = context
+    const {asPath, query} = context
     const props = {route: {path: asPath, query}}
     // 获取远程文章数据
     const articles = await getHomeArticle()
@@ -19,11 +20,11 @@ export default class Index extends Component {
   buildArticleJSX (articles) {
     return articles.length ? articles.map(item => {
       const {description, codeText} = item
-      const {bodyHTML} = compileMarkdown2(description || codeText)
+      const {compileCode} = compileMarkdown(description || codeText)
       return <article key={item.id} className="index-article-item m-v-40">
         <h1><Link href={`/article/${item.id}`}><a className="font-24 c-333">{item.title}</a></Link></h1>
         <div className="m-t-30 m-b-40 font-14" data-flex="cross:center">{item.time}</div>
-        {bodyHTML}
+        <div dangerouslySetInnerHTML={{__html: compileCode}} className="article-compile"></div>
         {this.buildTags(item.tags)}
         <div className="more font-14 a-c">
           <Link href={`/article/${item.id}`}><a className="iblock p-v-8 p-h-20">阅读全文</a></Link>

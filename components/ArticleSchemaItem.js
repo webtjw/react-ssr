@@ -20,7 +20,8 @@ class ArticleSchemaItem extends Component {
       <div data-flex-box="0" className="article-schema-title">{article.title}</div>
       {
         article.tags && article.tags.length ? <div className="m-l-20 font-13" data-flex-box="1" data-flex="dir:left cross:center">
-          <img className="svg-14" src="/static/svg/tag.svg" alt="tag"/>
+          <img className="svg-14 grey" src="/static/svg/tag.svg" alt="tag"/>
+          <img className="svg-14 white" src="/static/svg/tag.white.svg" alt="tag"/>
           {
             article.tags.map(tag => <div key={tag} onClick={e => this.articleTagClick(e, tag)} data-flex-box="0" className="tag-another m-l-8 c-999">{tag}</div>)
           }
