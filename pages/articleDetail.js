@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
 import Link from 'next/link'
 import PageWrapper from '../components/PageWrapper'
-import {compileMarkdown} from '../utils/article'
-import compileMarkdown2 from '../utils/markdownCompiler'
+import compileMarkdown from '../utils/markdownCompiler'
 import {getArticleDetail} from '../request'
 import '../components/style/article-preview.less'
 
@@ -19,7 +18,8 @@ class ArticleDetail extends Component {
 
   render () {
     const {article, article: {id, title}, route, developer} = this.props
-    const {compileCode} = compileMarkdown2(article.codeText)
+    const {compileCode, headers} = compileMarkdown(article.codeText)
+    console.log(headers)
 
     return <PageWrapper title={title} description={title} keyword={title} route={route} developer={developer}>
       <article className="article-detail p-v-30 m-v-20">
