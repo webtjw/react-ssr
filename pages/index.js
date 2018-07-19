@@ -42,9 +42,9 @@ export default class Index extends Component {
   }
 
   render () {
-    const {articles, route} = this.props
+    const {articles, route, developer} = this.props
 
-    return <PageWrapper title="Robin · 技术小站" route={route}>
+    return <PageWrapper title="Robin · 技术小站" route={route} developer={developer}>
       <div className="main-index">
         {this.buildArticleJSX(articles)}
       </div>

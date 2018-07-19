@@ -103,10 +103,10 @@ export default class ArticleEdit extends Component {
   render () {
     const {
       state: {inputArticle, selectedTags, allTagsVisible, allTags},
-      props: {route}
+      props: {route, developer}
     } = this
 
-    return <PageWrapper title="编辑文章 · Robin" route={route}>
+    return <PageWrapper title="编辑文章 · Robin" route={route} developer={developer}>
       <div className="main-article-edit">
         {/* tag */}
         <div className="p-v-10">

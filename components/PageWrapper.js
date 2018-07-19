@@ -11,11 +11,12 @@ class PageWrapper extends Component {
     title: PropTypes.string.isRequired,
     description: PropTypes.string,
     keyword: PropTypes.string,
-    route: PropTypes.object.isRequired
+    route: PropTypes.object.isRequired,
+    developer: PropTypes.bool
   }
 
   render () {
-    const {title, description, keyword, route: {path}} = this.props
+    const {title, description, keyword, route: {path}, developer} = this.props
 
     return <div id="app">
       <Head>
@@ -25,7 +26,7 @@ class PageWrapper extends Component {
         <title key="title">{title}</title>
       </Head>
 
-      <Topbar path={path} />
+      <Topbar path={path} developer={developer} />
 
       <div className="wrapper">
         {this.props.children}

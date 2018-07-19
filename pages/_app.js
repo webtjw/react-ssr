@@ -5,8 +5,7 @@ export default class MyApp extends App {
   static async getInitialProps ({Component, router, ctx}) {
     let pageProps = {}
     if (Component.getInitialProps) pageProps = await Component.getInitialProps(ctx) // default
-    console.log('getInitialProps', ctx)
-    console.log(ctx && ctx.req && ctx.req.headers.cookie && ctx.req.headers.cookie.indexOf('authentication') > -1)
+    
     return {
       pageProps,
       developer: ctx && ctx.req && ctx.req.headers.cookie && ctx.req.headers.cookie.indexOf('authentication') > -1

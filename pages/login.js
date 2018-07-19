@@ -36,9 +36,9 @@ class Login extends Component {
 
   render () {
     const value = this.state && this.state.token !== null ? this.state.token : ''
-    const {route} = this.props
+    const {route, developer} = this.props
 
-    return <PageWrapper title="开发者 · Robin" route={route}>
+    return <PageWrapper title="开发者 · Robin" route={route} developer={developer}>
       <div className="login-page p-t-40 a-c">
         <h3 className="font-18 m-v-40">开发者入口</h3>
         <RobinInput

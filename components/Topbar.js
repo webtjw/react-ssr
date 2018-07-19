@@ -12,7 +12,8 @@ const topNavs = [
 
 class Topbar extends Component {
   static propTypes = {
-    path: PropTypes.string.isRequired
+    path: PropTypes.string.isRequired,
+    developer: PropTypes.bool
   }
 
   getActiveIndex () {
@@ -25,13 +26,15 @@ class Topbar extends Component {
   }
   
   render () {
+    const {developer} = this.props
+    const avatarLink = developer ? '/article/edit' : '/login'
     const activeIndex = this.getActiveIndex()
 
     return <div id="topbar">
     <div className="wrapper">
       <div data-flex="dir:left cross:center">
         <div data-flex-box="0" className="font-0">
-          <Link href={'/login'}><img className="avatar pointer" src='/ssrStatic/images/avatar.jpg' alt="Robin"/></Link>
+          <Link href={avatarLink}><img className="avatar pointer" src='/ssrStatic/images/avatar.jpg' alt="Robin"/></Link>
         </div>
         <nav className="a-r font-15" data-flex-box="1" data-flex="dir:left main:right cross:center">
           <Link href="/index" as="/"><a className={`nav-item c-333 relative ${activeIndex === 1 && 'active'}`}>首页</a></Link>

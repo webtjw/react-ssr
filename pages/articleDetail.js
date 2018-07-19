@@ -21,7 +21,7 @@ class ArticleDetail extends Component {
     const {article, article: {id, title}, route, developer} = this.props
     const {compileCode} = compileMarkdown2(article.codeText)
 
-    return <PageWrapper title={title} description={title} keyword={title} route={route}>
+    return <PageWrapper title={title} description={title} keyword={title} route={route} developer={developer}>
       <article className="article-detail p-v-30 m-v-20">
         <h1 className="font-24">{article.title} {developer ? <Link href={`/article/edit/${id}`}><a className="c-link">edit</a></Link> : null}</h1>
         <div className="article-attrs font-13 m-t-30 m-b-40" data-flex="cross:center">
