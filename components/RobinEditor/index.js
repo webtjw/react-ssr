@@ -24,9 +24,7 @@ class RobinEditor extends Component {
       editTools: [
         {icon: 'title', title: '设置为标题', method: () => this.setTitle()},
         {icon: 'bold', title: '粗体', method: () => this.setBold()},
-        {icon: 'center', title: '居中', method: () => this.setAlign()},
         {icon: 'quote', title: '引用', method: () => this.setQuote()},
-        {icon: 'more', title: '插入预览符', method: () => this.setMore()},
         {icon: 'list', title: '列表', method: () => this.setList()},
         {icon: 'link', title: '插入链接', method: () => this.setLink()},
         {icon: 'image', title: '插入图片', method: () => this.setState({additionalToolType: 'image'})},
@@ -81,13 +79,8 @@ class RobinEditor extends Component {
   }
   setTitle () {
     const {value} = this.props
-    const concatString = '#t 标题\n' + value
-    this.updateInputValue(concatString, 3, 5)
-  }
-  setAlign () {
-    const {selectState: {start, prev, selected, next}} = this
-    const isPrevWrap = prev.endsWith('\n')
-    this.updateInputValue((isPrevWrap ? prev : prev + '\n') + `**center\n${selected || '居中'}\n**\n` + next, start + 9 + Number(!isPrevWrap), start + (selected.length || 2) + 9 + Number(!isPrevWrap))
+    const concatString = '[title fillYourTitleHere title]\n' + value
+    this.updateInputValue(concatString, 7, 24)
   }
   setBold () {
     const {selectState: {start, selected, prev, next}} = this
@@ -97,14 +90,6 @@ class RobinEditor extends Component {
     const {selectState: {start, prev, selected, next}} = this
     const isPrevWrap = prev.endsWith('\n')
     this.updateInputValue((isPrevWrap ? prev : (prev + '\n')) + `> ${selected || '块级引用'}\n` + next, start + 2 + Number(!isPrevWrap), start + (selected.length || 4) + 2 + Number(!isPrevWrap))
-  }
-  setMore () {
-    const {selectState: {prev, selected, next, start}} = this
-    if (prev) {
-      const isPrevWrap = prev.endsWith('\n')
-      const postion = start + Number(isPrevWrap) + 14
-      this.updateInputValue(prev + (isPrevWrap ? '' : '\n') + '<!-- more -->\n' + selected + next, postion, postion)
-    }
   }
   setList () {
     const {selectState: {start, prev, selected, next}} = this
