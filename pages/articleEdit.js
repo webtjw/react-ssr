@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import Router from 'next/router'
 import PageWrapper from '../components/PageWrapper'
 import {getAllTags, getArticleDetail, saveArticle, uploadFile} from '../request'
 import RobinEditor from '../components/RobinEditor'
@@ -7,6 +8,7 @@ import '../components/style/article-edit.less'
 export default class ArticleEdit extends Component {
   static async getInitialProps (context) {
     const {asPath, query} = context
+    console.log(context)
     const props = {route: {path: asPath, query}}
 
     return props
@@ -18,7 +20,6 @@ export default class ArticleEdit extends Component {
     this.state = {
       allTags: [],
       selectedTags: [],
-      time: '',
       inputArticle: '',
       allTagsVisible: false
     }
@@ -78,8 +79,9 @@ export default class ArticleEdit extends Component {
       article.tags = selectedTags
       const result = await saveArticle(article)
       if (result) {
+        console.log(this.props)
         alert('保存成功')
-        this.props.url.replace(`/article/${result.id}`)
+        Router.replace(`/article/${result.id}`)
       }
     }
   }
@@ -89,8 +91,7 @@ export default class ArticleEdit extends Component {
       if (articleData) {
         this.setState({
           inputArticle: articleData.codeText,
-          selectedTags: articleData.tags,
-          time: articleData.time || ''
+          selectedTags: articleData.tags
         })
       }
     }

@@ -211,10 +211,13 @@ class RobinEditor extends Component {
     this.setHeight(true)
   }
   componentWillReceiveProps (nextProps) {
-    if (this.launchInit) {
+    if (this.launchInit && !this.props.compileText && nextProps.value) {
       this.launchInit = false
       this.updateInputValue(nextProps.value)
     }
+  }
+  componentWillUnmount () {
+    clearTimeout(this.compileTimer)
   }
   render () {
     const {
