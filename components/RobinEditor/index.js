@@ -198,7 +198,7 @@ class RobinEditor extends Component {
   componentWillReceiveProps (nextProps) {
     if (this.launchInit && !this.props.compileText && nextProps.value) {
       this.launchInit = false
-      this.updateInputValue(nextProps.value)
+      this.updateInputValue(nextProps.value, 0, 0)
     }
   }
   componentWillUnmount () {
