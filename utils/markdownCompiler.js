@@ -25,9 +25,10 @@ const headerUtil = {
   },
   add (title, slug, level) {
     if (!headerUtil.headers.length && level !== 'h1') console.warn('first header must be h1')
-    else if (level === 'h1') headerUtil.headers.push({title, slug, children: []})
-    else if (level === 'h2') headerUtil.headers.slice(-1)[0].children.push({title, slug, children: []})
-    else if (level === 'h3') headerUtil.headers.slice(-1)[0].children.slice(-1)[0].children.push({title, slug})
+    headerUtil.headers.push({title, slug, level: +(level[1])})
+    // else if (level === 'h1') headerUtil.headers.push({title, slug, children: []})
+    // else if (level === 'h2') headerUtil.headers.slice(-1)[0].children.push({title, slug, children: []})
+    // else if (level === 'h3') headerUtil.headers.slice(-1)[0].children.slice(-1)[0].children.push({title, slug})
   }
 }
 

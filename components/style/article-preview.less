@@ -22,7 +22,7 @@
   h1:first-of-type { margin-top: 0;}
 
   .loopHeader(@level) when (@level <= 4) {
-    h@{level} { margin: (80 / @level * 1px) 0 (30 / @level * 1px); font-size: (24 - @level * 2) * 1px;}
+    h@{level} { margin: (80 / @level * 1px) 0 (30 / @level * 1px); font-size: (26 - @level * 2) * 1px;}
     .loopHeader(@level + 1)
   }
   .loopHeader(1);

@@ -18,8 +18,7 @@ class ArticleDetail extends Component {
 
   render () {
     const {article, article: {id, title}, route, developer} = this.props
-    const {compileCode, headers} = compileMarkdown(article.codeText)
-    console.log(headers)
+    const {compileCode} = compileMarkdown(article.codeText)
 
     return <PageWrapper title={title} description={title} keyword={title} route={route} developer={developer}>
       <article className="article-detail p-v-30 m-v-20">
