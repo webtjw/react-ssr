@@ -12,12 +12,12 @@ export default class Index extends Component {
     const props = {route: {path: asPath, query}}
     // 获取远程文章数据
     const articles = await getHomeArticle()
-    if (articles) props.articles = articles
-    
+    props.articles = articles || []
+    console.log(`收到的 articles 为：${articles}`)
     return props
   }
 
-  buildArticleJSX (articles) {
+  buildArticleJSX (articles = []) {
     return articles.length ? articles.map(item => {
       const {description, codeText} = item
       const {compileCode} = compileMarkdown(description || codeText)

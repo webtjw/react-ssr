@@ -1,8 +1,7 @@
 import axios from './axios'
 
-export async function getHomeArticle () {
-  const result = await axios.get('/article/index')
-  return result
+export function getHomeArticle () {
+  return axios.get('/article/index')
 }
 
 export async function getArchive (index = 0, size = 20) {
