@@ -9,7 +9,6 @@ class Article extends Component {
     const props = {route: {path: asPath, query}}
     // 获取远程文章数据
     const archiveDatas = await getArchive()
-    console.log(archiveDatas)
     if (archiveDatas) {
       // 分类排序
       const monthArticles = archiveDatas.map(item => {
