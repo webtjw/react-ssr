@@ -5,11 +5,7 @@ export function getHomeArticle () {
 }
 
 export async function getArchive (index = 0, size = 20) {
-  return axios({
-    url: '/article/getArchive',
-    method: 'POST',
-    data: {index, size}
-  })
+  return axios.post('/article/getArchive', {index, size})
 }
 
 export async function getArticleDetail (id) {
