@@ -13,11 +13,7 @@ export async function getArchive (index = 0, size = 20) {
 }
 
 export async function getArticleDetail (id) {
-  return /^[0-9]+$/.test(id) ? axios({
-    url: `/article/data`,
-    method: 'POST',
-    data: {id}
-  }) : null;
+  return /^[0-9]+$/.test(id) ? axios.get(`/article/data/${id}`) : null
 }
 
 export async function getAllTags () {

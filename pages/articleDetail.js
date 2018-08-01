@@ -12,6 +12,7 @@ class ArticleDetail extends Component {
     // 获取 id 再拉取远程数据
     const {id} = query
     const articleDetail = await getArticleDetail(id)
+    console.log(articleDetail)
     if (articleDetail) props.article = articleDetail
     return props
   }

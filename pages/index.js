@@ -13,14 +13,13 @@ export default class Index extends Component {
     // 获取远程文章数据
     const articles = await getHomeArticle()
     props.articles = articles || []
-    console.log(`收到的 articles 为：${articles}`)
     return props
   }
 
   buildArticleJSX (articles = []) {
     return articles.length ? articles.map(item => {
-      const {description, codeText} = item
-      const {compileCode} = compileMarkdown(description || codeText)
+      const {antecedent} = item
+      const {compileCode} = compileMarkdown(antecedent)
       return <article key={item.id} className="index-article-item m-v-40">
         <h1><Link href={`/article/${item.id}`}><a className="font-24 c-333">{item.title}</a></Link></h1>
         <div className="m-t-30 m-b-40 font-14 c-999">{item.time}</div>
