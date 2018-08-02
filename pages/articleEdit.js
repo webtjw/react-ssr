@@ -7,9 +7,10 @@ import '../components/style/article-edit.less'
 
 export default class ArticleEdit extends Component {
   static async getInitialProps (context) {
-    const {asPath, query} = context
     console.log(context)
-    const props = {route: {path: asPath, query}}
+    const {asPath, query} = context
+    const idReg = asPath.match(/[0-9]+$/)
+    const props = {route: {path: asPath, query}, articleId: idReg ? idReg[0] : null}
 
     return props
   }
@@ -70,7 +71,7 @@ export default class ArticleEdit extends Component {
     callback && callback(result.success ? result.data : false)
   }
   async saveArticle ({title, antecedent, compileCode}) {
-    const {id} = this.props.route.query
+    const id = this.props.articleId
     const {selectedTags, inputArticle} = this.state
     const article = {code: inputArticle, antecedent, title}
 
@@ -79,15 +80,14 @@ export default class ArticleEdit extends Component {
       article.tags = selectedTags
       const result = await saveArticle(article)
       if (result) {
-        console.log(this.props)
         alert('保存成功')
         Router.replace(`/article/${result.id}`)
       }
     }
   }
   async fetchEditArticleData () {
-    if (this.props.route.query.id) {
-      const articleData = await getArticleDetail(this.props.route.query.id)
+    if (this.props.articleId) {
+      const articleData = await getArticleDetail(this.props.articleId)
       if (articleData) {
         this.setState({
           inputArticle: articleData.codeText,

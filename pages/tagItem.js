@@ -19,9 +19,8 @@ class TagItem extends Component {
 
   render () {
     const {articles, tag, route} = this.props
-    console.log(tag)
 
-    return <PageWrapper title={`${tag} · 标签`} description="标签分类,文章标签" keyword="标签分类,技术标签" route={route} developer={developer}>
+    return <PageWrapper title={`${tag} · 标签`} description="标签分类,文章标签" keyword="标签分类,技术标签" route={route}>
       <div className="tag-item-page p-t-40">
         <div className="p-b-40" data-flex="dir:left cross:center">
           <img className="svg-16" src='/static/svg/tag.svg' alt="tag"/>

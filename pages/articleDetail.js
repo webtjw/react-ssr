@@ -35,7 +35,7 @@ class ArticleDetail extends Component {
           }
         </div>
         <div dangerouslySetInnerHTML={{__html: compileCode}} className="article-compile"></div>
-        <div className="a-c font-20 p-v-40">（完）</div>
+        <div className="p-v-40"></div>
       </article>
     </PageWrapper>
   }
