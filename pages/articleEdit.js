@@ -82,7 +82,7 @@ export default class ArticleEdit extends Component {
         alert('保存成功')
         Router.replace(`/article/${result.id}`)
       }
-    }
+    } else alert('未选择标签或未输入有效内容')
   }
   async fetchEditArticleData () {
     if (this.props.articleId) {
