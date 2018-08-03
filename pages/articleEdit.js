@@ -81,7 +81,7 @@ export default class ArticleEdit extends Component {
       if (result) {
         alert('保存成功')
         Router.replace(`/article/${result.id}`)
-      }
+      } else alert('保存失败，请重试')
     } else alert('未选择标签或未输入有效内容')
   }
   async fetchEditArticleData () {

@@ -15,7 +15,6 @@ class RobinEditor extends Component {
     value: PropTypes.string.isRequired,
     updateValue: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired
-
   }
   constructor () {
     super()
@@ -123,6 +122,7 @@ class RobinEditor extends Component {
         textarea.focus()
       }
       this.compileMarkdown(value)
+      setTimeout(() => this.saveHistory(value))
     })
   }
   compileMarkdown (md) {
@@ -208,9 +208,23 @@ class RobinEditor extends Component {
   focusInput () {
     this.refTextarea.current.focus()
   }
+  saveHistory (value) {
+    localStorage.setItem('RobinEditorHistory', value)
+  }
+  recoverHistory () {
+    const history = localStorage.getItem('RobinEditorHistory')
+    if (history) {
+      let shouldRecover = confirm('检查到缓存数据，是否要恢复？')
+      if (shouldRecover) {
+        this.updateInputValue(history, 0, 0)
+        this.launchInit = false // 防止 ajax 数据覆盖
+      }
+    }
+  }
 
   componentDidMount () {
     this.setHeight(true)
+    this.recoverHistory()
   }
   componentWillReceiveProps (nextProps) {
     if (this.launchInit && !this.props.compileText && nextProps.value) {
