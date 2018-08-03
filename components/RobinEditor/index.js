@@ -79,8 +79,22 @@ class RobinEditor extends Component {
   }
   setTitle () {
     const {value} = this.props
-    const concatString = '[title fillYourTitleHere title]\n' + value
-    this.updateInputValue(concatString, 7, 24)
+    const {selected, start, next} = this.selectState
+    let selectPosition, code, titleCode
+
+    if (!selected) {
+      titleCode = `[title title title]\n`
+      selectPosition = [7, 12]
+      code = titleCode + value
+    } else if (start === 0) {
+      titleCode = `[title ${selected} title]\n`
+      selectPosition = [7, 7 + selected.length]
+      code = titleCode + next
+    } else {
+      alert('注入标题只能从开头开始选择')
+      return null
+    }
+    this.updateInputValue(code, ...selectPosition)
   }
   setBold () {
     const {selectState: {start, selected, prev, next}} = this
@@ -190,6 +204,9 @@ class RobinEditor extends Component {
     const {value} = this.props
     const compile = compileMarkdown(value)
     this.props.onSave(compile)
+  }
+  focusInput () {
+    this.refTextarea.current.focus()
   }
 
   componentDidMount () {

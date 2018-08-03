@@ -7,7 +7,6 @@ import '../components/style/article-edit.less'
 
 export default class ArticleEdit extends Component {
   static async getInitialProps (context) {
-    console.log(context)
     const {asPath, query} = context
     const idReg = asPath.match(/[0-9]+$/)
     const props = {route: {path: asPath, query}, articleId: idReg ? idReg[0] : null}
