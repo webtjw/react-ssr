@@ -15,7 +15,8 @@ markdownCompiler.use(markdownItAnchor, {
 // title syntax： [title i am a header title]
 const regExtractTitle = /^\[title ([\s\S]+) title]\n/
 // antecedent syntax： [antecedent i am an antecedent antecedent]
-const regExtractAntecedent = /\[antecedent (((?!antecedent\]).)+) antecedent]/g
+// const regExtractAntecedent = /\[antecedent (((?!antecedent\]).)+) antecedent]/g
+const regExtractAntecedent = /\[antecedent ([\s\S\n]+) antecedent]/g
 // header funcitons
 const headerUtil = {
   headers: [],
@@ -47,7 +48,7 @@ function extractAntecedent (md) {
   const mdWithoutAntecedent = md.replace(regExtractAntecedent, ($1, $2) => {
     // antecedent = (antecedent ? (antecedent + '\n\n') : antecedent) + $2
     antecedent.push($2)
-    return $2
+    return $2 || $1
   })
   antecedent = antecedent.join('\n\n')
   return {antecedent, mdWithoutAntecedent}
