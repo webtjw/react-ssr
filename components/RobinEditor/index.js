@@ -202,8 +202,7 @@ class RobinEditor extends Component {
   checkSave () {
     const {value} = this.props
     const compile = compileMarkdown(value)
-    console.log(compile.antecedent)
-    // this.props.onSave(compile)
+    this.props.onSave(compile)
   }
   focusInput () {
     this.refTextarea.current.focus()

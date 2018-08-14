@@ -1,5 +1,6 @@
 import MarkdownIt from 'markdown-it'
 import markdownItAnchor from 'markdown-it-anchor'
+import { RSA_PKCS1_OAEP_PADDING } from 'constants';
 
 const markdownCompiler = new MarkdownIt({html: false, typographer: true})
 markdownCompiler.use(require('markdown-it-highlightjs'))
@@ -15,8 +16,7 @@ markdownCompiler.use(markdownItAnchor, {
 // title syntax： [title i am a header title]
 const regExtractTitle = /^\[title ([\s\S]+) title]\n/
 // antecedent syntax： [antecedent i am an antecedent antecedent]
-// const regExtractAntecedent = /\[antecedent (((?!antecedent\]).)+) antecedent]/g
-const regExtractAntecedent = /\[antecedent ([\s\S\n]+) antecedent]/g
+const regExtractAntecedent = /\[antecedent\s([^(|\santecedent\])]+)\santecedent]/g
 // header funcitons
 const headerUtil = {
   headers: [],
@@ -45,10 +45,11 @@ function extractTitle (md) {
 
 function extractAntecedent (md) {
   let antecedent = []
-  const mdWithoutAntecedent = md.replace(regExtractAntecedent, ($1, $2) => {
-    // antecedent = (antecedent ? (antecedent + '\n\n') : antecedent) + $2
-    antecedent.push($2)
-    return $2 || $1
+  const mdWithoutAntecedent = md.replace(regExtractAntecedent, function (match, $1) {
+    // match p1..pn offset origin
+    // 由于箭头函数无绑定的特性，是获取不到 arguments 的，必须要用普通函数
+    antecedent.push($1)
+    return $1 || match
   })
   antecedent = antecedent.join('\n\n')
   return {antecedent, mdWithoutAntecedent}
