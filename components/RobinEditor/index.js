@@ -51,7 +51,6 @@ class RobinEditor extends Component {
       selected: '',
       next: ''
     }
-    this.launchInit = true
     this.compileTimer = null
     this.scrollType = -1
     // refs
@@ -203,8 +202,8 @@ class RobinEditor extends Component {
   checkSave () {
     const {value} = this.props
     const compile = compileMarkdown(value)
-    console.log(compile)
-    this.props.onSave(compile)
+    console.log(compile.antecedent)
+    // this.props.onSave(compile)
   }
   focusInput () {
     this.refTextarea.current.focus()
@@ -217,8 +216,8 @@ class RobinEditor extends Component {
     if (history) {
       let shouldRecover = confirm('检查到缓存数据，是否要恢复？')
       if (shouldRecover) {
+        this.props.onUseHistory && this.props.onUseHistory()
         this.updateInputValue(history, 0, 0)
-        this.launchInit = false // 防止 ajax 数据覆盖
       }
     }
   }
@@ -226,12 +225,6 @@ class RobinEditor extends Component {
   componentDidMount () {
     this.setHeight(true)
     this.recoverHistory()
-  }
-  componentWillReceiveProps (nextProps) {
-    if (this.launchInit && !this.props.compileText && nextProps.value) {
-      this.launchInit = false
-      this.updateInputValue(nextProps.value, 0, 0)
-    }
   }
   componentWillUnmount () {
     clearTimeout(this.compileTimer)

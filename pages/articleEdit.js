@@ -23,6 +23,9 @@ export default class ArticleEdit extends Component {
       inputArticle: '',
       allTagsVisible: false
     }
+
+    this.useHistory = false
+    this.robinEditorRef = React.createRef()
   }
 
   removeSelectedTag (index) {
@@ -87,11 +90,11 @@ export default class ArticleEdit extends Component {
   async fetchEditArticleData () {
     if (this.props.articleId) {
       const articleData = await getArticleDetail(this.props.articleId)
-      if (articleData) {
+      if (articleData && !this.useHistory) {
         this.setState({
           inputArticle: articleData.codeText,
           selectedTags: articleData.tags
-        })
+        }, () => this.robinEditorRef.current.compileMarkdown(articleData.codeText))
       }
     }
   }
@@ -103,7 +106,8 @@ export default class ArticleEdit extends Component {
   render () {
     const {
       state: {inputArticle, selectedTags, allTagsVisible, allTags},
-      props: {route, developer}
+      props: {route, developer},
+      robinEditorRef
     } = this
 
     return <PageWrapper title="编辑文章 · Robin" route={route} developer={developer}>
@@ -129,10 +133,12 @@ export default class ArticleEdit extends Component {
           </div>
         </div>
         <RobinEditor 
+          ref={robinEditorRef}
           onUpload={(file, cb) => this.uploadImage(file, cb)}
           value={inputArticle}
           updateValue={(val, cb)=> this.setState({inputArticle: val}, () => cb && cb())}
-          onSave={d => this.saveArticle(d)} />
+          onSave={d => this.saveArticle(d)}
+          onUseHistory={() => this.useHistory = true} />
       </div>
     </PageWrapper>
   }
