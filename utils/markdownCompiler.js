@@ -15,8 +15,8 @@ markdownCompiler.use(markdownItAnchor, {
 })
 // title syntax： [title i am a header title]
 const regExtractTitle = /^\[title ([\s\S]+) title]\n/
-// antecedent syntax： [antecedent i am an antecedent antecedent]
-const regExtractAntecedent = /\[antecedent\s([^(|\santecedent\])]+)\santecedent]/g
+// antecedent syntax： [A i am an antecedent A]
+const regExtractAntecedent = /<A\s([\s\S]+?)\sA>/g
 // header funcitons
 const headerUtil = {
   headers: [],
@@ -33,7 +33,6 @@ const headerUtil = {
   }
 }
 
-
 function extractTitle (md) {
   let title = null
   const mdWithoutTitle = md.replace(regExtractTitle, ($1, $2) => {
@@ -48,6 +47,7 @@ function extractAntecedent (md) {
   const mdWithoutAntecedent = md.replace(regExtractAntecedent, function (match, $1) {
     // match p1..pn offset origin
     // 由于箭头函数无绑定的特性，是获取不到 arguments 的，必须要用普通函数
+    // console.log(arguments)
     antecedent.push($1)
     return $1 || match
   })
