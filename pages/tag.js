@@ -9,7 +9,7 @@ class Tag extends Component {
     const props = {route: {path: asPath, query}}
   
     const remoteTags = await getAllTags()
-    if (remoteTags) props.tags = remoteTags
+    if (remoteTags) props.tags = remoteTags.sort((x, y) => y.number - x.number)
 
     return props
   }
@@ -22,7 +22,7 @@ class Tag extends Component {
       {
         tags.map(tag => {
           return <Link href={`/tag/${tag.name}`} key={tag.id}>
-            <a className="tag-index-item m-r-30 m-b-20 iblock font-16 c-link">
+            <a className="tag-index-item m-r-30 m-b-20 iblock c-link" style={{fontSize: `${tag.number + 12}px`}}>
               {tag.name}<span className="font-14">{`（${tag.number}）`}</span>
             </a>
           </Link>
