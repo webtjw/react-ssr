@@ -22,8 +22,8 @@ export async function getAllTags () {
 
 export async function getArticleByTag (tag, index = 1) {
   if (tag && typeof index === 'number' && index > 0) {
-    return axios.get(`/tag/${tag}`, {
-      params: { index }
+    return axios.get(`/tag/list`, {
+      params: { index, tag }
     })
   }
 }
