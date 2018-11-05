@@ -15,7 +15,6 @@ export default class MyDocument extends Document {
           <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
 
           <link rel="shortcut icon" href="/ssrStatic/favicon.ico" type="image/x-icon" />
-          <link rel="stylesheet" href="/_next/static/style.css" />
         </Head>
         <body className="c-333">
           <Main />

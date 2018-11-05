@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PageWrapper from '../components/PageWrapper'
 import ArticleSchemaItem from '../components/ArticleSchemaItem'
-import {getArchive} from '../request'
+import { getArchive } from '../request'
 
 class Article extends Component {
   static async getInitialProps(ctx) {
@@ -10,8 +10,20 @@ class Article extends Component {
     // 获取远程文章数据
     const archiveDatas = await getArchive()
     if (archiveDatas) {
+      // 根据月份区分
+      const monthList = []
+      let currentMonth = { month: '', list: [] }
+      archiveDatas.forEach(item => {
+        const itemMonth = item.time.slice(0, item.time.lastIndexOf('-'))
+        if (currentMonth.month === itemMonth) {
+          currentMonth.list.push(item)
+        } else {
+          currentMonth = {month: itemMonth, list: [item]}
+          monthList.push(currentMonth)
+        }
+      })
       // 分类排序
-      const monthArticles = archiveDatas.map(item => {
+      const monthArticles = monthList.map(item => {
         const data = item.month.split('-')
         item.monthText = `${data[0]}-${data[1]}`
         return item

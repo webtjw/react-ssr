@@ -1,27 +1,29 @@
 import axios from './axios'
 
 export function getHomeArticle () {
-  return axios.get('/article/index')
+  return axios.get('/index')
 }
 
-export async function getArchive (index = 0, size = 20) {
-  return axios.post('/article/getArchive', {index, size})
+export async function getArchive (index = 1) {
+  return axios.get('/archive', {
+    params: {
+      index
+    }
+  })
 }
 
 export async function getArticleDetail (id) {
-  return /^[0-9]+$/.test(id) ? axios.get(`/article/data/${id}`) : null
+  return /^[0-9]+$/.test(id) ? axios.get(`/article/${id}`) : null
 }
 
 export async function getAllTags () {
-  return axios.get('/article/allTags')
+  return axios.get('/tags')
 }
 
-export async function getArticleByTag (tag, pageIndex = 0) {
-  if (tag && typeof pageIndex === 'number' && pageIndex >= 0) {
-    return axios({
-      url: '/article/getArticleByTag',
-      method: 'POST',
-      data: {tag, pageIndex}
+export async function getArticleByTag (tag, index = 1) {
+  if (tag && typeof index === 'number' && index > 0) {
+    return axios.get(`/tag/${tag}`, {
+      params: { index }
     })
   }
 }
@@ -36,7 +38,7 @@ export async function login (token) {
 
 export async function saveArticle (article) {
   return axios({
-    url: `/article/save`,
+    url: `/save`,
     method: 'POST',
     data: article
   })

@@ -3,4 +3,4 @@ const withLess = require('@zeit/next-less')
 
 const config = withCSS(withLess())
 
-module.exports =  config
+module.exports = config
