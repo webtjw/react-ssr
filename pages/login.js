@@ -22,7 +22,10 @@ class Login extends Component {
   }
 
   async checkSubmit () {
-    const {state: {token}, props: {updateDeveloper}} = this
+    const {
+      state: { token },
+      props: { updateDeveloper },
+    } = this
     if (typeof token === 'string' && token.trim()) {
       const result = await login(token)
       if (result) {

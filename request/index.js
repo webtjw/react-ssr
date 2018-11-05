@@ -4,7 +4,7 @@ export function getHomeArticle () {
   return axios.get('/index')
 }
 
-export async function getArchive (index = 1) {
+export function getArchive (index = 1) {
   return axios.get('/archive', {
     params: {
       index
@@ -12,15 +12,15 @@ export async function getArchive (index = 1) {
   })
 }
 
-export async function getArticleDetail (id) {
+export function getArticleDetail (id) {
   return /^[0-9]+$/.test(id) ? axios.get(`/article/${id}`) : null
 }
 
-export async function getAllTags () {
+export function getAllTags () {
   return axios.get('/tags')
 }
 
-export async function getArticleByTag (tag, index = 1) {
+export function getArticleByTag (tag, index = 1) {
   if (tag && typeof index === 'number' && index > 0) {
     return axios.get(`/tag/list`, {
       params: { index, tag }
@@ -28,15 +28,15 @@ export async function getArticleByTag (tag, index = 1) {
   }
 }
 
-export async function login (token) {
+export function login (token) {
   return axios({
-    url: `/article/login`,
+    url: `/login`,
     method: 'POST',
-    data: {token}
+    data: { token }
   })
 }
 
-export async function saveArticle (article) {
+export function saveArticle (article) {
   return axios({
     url: `/save`,
     method: 'POST',
@@ -44,7 +44,7 @@ export async function saveArticle (article) {
   })
 }
 
-export async function uploadFile (file) {
+export function uploadFile (file) {
   const formdata = new FormData()
   formdata.append('file', file)
 
