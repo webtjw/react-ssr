@@ -14,7 +14,7 @@ class PageWrapper extends Component {
     route: PropTypes.object.isRequired,
     developer: PropTypes.bool
   }
-
+  
   render () {
     const {title, description, keyword, route: {path}, developer} = this.props
 

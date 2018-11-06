@@ -6,16 +6,13 @@ const axiosRequest = axios.create({
 })
 
 axiosRequest.interceptors.response.use(response => {
-  const cookieTexts = response.headers['set-cookie']
-  if (cookieTexts) {
-    const regExp = /csrfToken=(.+?);/i
-    for (let item of cookieTexts) {
-      if (item && item.includes('csrfToken')) {
-        const result = item.match(regExp)
-        if (result && result[1]) {
-          axiosRequest.defaults.headers.post['x-csrf-token'] = result[1]
-          break
-        }
+  if (process.browser) {
+    const { cookie } = document
+    if (cookie && cookie.includes('csrfToken')) {
+      const result = cookie.match(/csrfToken=(.+?)(;|$)/i)
+      if (result && result[1]) {
+        console.log('set token', result[1])
+        axiosRequest.defaults.headers['x-csrf-token'] = result[1]
       }
     }
   }
