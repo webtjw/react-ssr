@@ -1,5 +1,6 @@
-import App, {Container} from 'next/app'
+import App, { Container } from 'next/app'
 import React from 'react'
+import { applyCSRF } from '../request'
 
 export default class MyApp extends App {
   static async getInitialProps ({Component, router, ctx}) {
@@ -23,6 +24,7 @@ export default class MyApp extends App {
 
   componentDidMount () {
     this.setState({developer: this.props.developer})
+    applyCSRF()
   }
   render () {
     const developer = this.state ? this.state.developer : this.props.developer

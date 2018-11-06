@@ -56,3 +56,19 @@ export function uploadFile (file) {
     headers: {'Content-Type': 'multipart/form-data'}
   })
 }
+
+export async function applyCSRF () {
+  const { cookie } = document
+  if (cookie && cookie.includes('csrfToken')) {
+    debugger
+    const reg = cookie.match(/csrfToken=(.+?)(;|$)/i)
+    if (reg && reg[1]) {
+      axios.defaults.headers['x-csrf-token'] = reg[1]
+    }
+  } else {
+    const result = await axios.get('/csrf')
+    if (result) {
+      applyCSRF()
+    }
+  }
+}

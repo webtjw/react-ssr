@@ -6,17 +6,6 @@ const axiosRequest = axios.create({
 })
 
 axiosRequest.interceptors.response.use(response => {
-  if (process.browser) {
-    const { cookie } = document
-    if (cookie && cookie.includes('csrfToken')) {
-      const result = cookie.match(/csrfToken=(.+?)(;|$)/i)
-      if (result && result[1]) {
-        console.log('set token', result[1])
-        axiosRequest.defaults.headers['x-csrf-token'] = result[1]
-      }
-    }
-  }
-
   return response && response.data && response.data.success && response.data.data
     ? response.data.data
     : null
