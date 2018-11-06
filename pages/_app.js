@@ -1,11 +1,13 @@
 import App, { Container } from 'next/app'
 import React from 'react'
-import { applyCSRF } from '../request'
+import { checkDeveloper } from '../request'
 
 export default class MyApp extends App {
   static async getInitialProps ({Component, router, ctx}) {
     let pageProps = {}
-    if (Component.getInitialProps) pageProps = await Component.getInitialProps(ctx) // default
+    if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps(ctx)
+    }
     
     return {
       pageProps,
@@ -24,7 +26,7 @@ export default class MyApp extends App {
 
   componentDidMount () {
     this.setState({developer: this.props.developer})
-    applyCSRF()
+    checkDeveloper()
   }
   render () {
     const developer = this.state ? this.state.developer : this.props.developer

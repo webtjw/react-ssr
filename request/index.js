@@ -57,18 +57,17 @@ export function uploadFile (file) {
   })
 }
 
-export async function applyCSRF () {
+export async function checkDeveloper () {
+  // 首次打开网站时，由 Next 在服务端渲染页面，
+  // 客户端执行时，向服务端发起 get 请求检查开发者凭证是否仍然有效
+  const checkResult = await axios.get('/isDeveloper')
+  // 上述的请求同时也会携带 egg 自带的防范 csrf cookie，需要在 post 请求中设置 header
   const { cookie } = document
   if (cookie && cookie.includes('csrfToken')) {
-    debugger
     const reg = cookie.match(/csrfToken=(.+?)(;|$)/i)
     if (reg && reg[1]) {
-      axios.defaults.headers['x-csrf-token'] = reg[1]
-    }
-  } else {
-    const result = await axios.get('/csrf')
-    if (result) {
-      applyCSRF()
+      axios.defaults.headers.post['x-csrf-token'] = reg[1]
     }
   }
+  return checkResult
 }

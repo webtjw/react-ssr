@@ -10,7 +10,7 @@ class ArticleDetail extends Component {
     const {asPath, query, req} = context
     const props = {route: {path: asPath, query}}
     // 获取 id 再拉取远程数据
-    const {id} = query
+    const { id } = query
     const articleDetail = await getArticleDetail(id)
     if (articleDetail) props.article = articleDetail
     return props
