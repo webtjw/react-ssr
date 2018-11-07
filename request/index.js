@@ -69,5 +69,5 @@ export async function checkDeveloper () {
       axios.defaults.headers.post['x-csrf-token'] = reg[1]
     }
   }
-  return checkResult
+  return checkResult && checkResult.success && checkResult.data
 }

@@ -27,7 +27,7 @@ export default class MyApp extends App {
   async checkPersistentToken () {
     const result = await checkDeveloper()
     this.setState({
-      developer: result.success && result.data
+      developer: result
     })
   }
 

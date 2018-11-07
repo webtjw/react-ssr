@@ -28,13 +28,17 @@ class Login extends Component {
     } = this
     if (token.trim()) {
       const result = await login(token)
-      if (result) {
+      if (result && result.success) {
+        const name = result.data
         updateDeveloper()
-        alert(`欢迎登入，${result}`)
+        alert(`欢迎登入，${name}`)
         Router.back()
+      } else {
+        alert(result.data)
       }
-      else alert('登入失败')
-    } else alert('请输入口令')
+    } else {
+      alert('请输入登入口令')
+    }
   }
 
   render () {
