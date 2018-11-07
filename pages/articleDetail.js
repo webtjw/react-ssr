@@ -1,14 +1,16 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Link from 'next/link'
 import PageWrapper from '../components/PageWrapper'
 import compileMarkdown from '../utils/markdownCompiler'
-import {getArticleDetail} from '../request'
+import { getArticleDetail } from '../request'
 import '../components/style/article-preview.less'
 
 class ArticleDetail extends Component {
   static async getInitialProps (context) {
-    const {asPath, query, req} = context
-    const props = {route: {path: asPath, query}}
+    const { asPath, query } = context
+    const props = {
+      route: { path: asPath, query }
+    }
     // 获取 id 再拉取远程数据
     const { id } = query
     const result = await getArticleDetail(id)

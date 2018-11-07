@@ -7,7 +7,7 @@ router.get('/', async (ctx, next) => {
   const { req, res } = ctx
   await nextApp.render(req, res, '/index')
   await next()
-}).get('/article/edit/:id', async (ctx, next) => {
+}).get('/article/edit/:id?', async (ctx, next) => {
   const { req, res, params } = ctx
   await nextApp.render(req, res, '/articleEdit', { id: params.id })
   await next()

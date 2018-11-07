@@ -1,15 +1,21 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Router from 'next/router'
 import PageWrapper from '../components/PageWrapper'
-import {getAllTags, getArticleDetail, saveArticle, uploadFile} from '../request'
+import { getAllTags, getArticleDetail, saveArticle, uploadFile } from '../request'
 import RobinEditor from '../components/RobinEditor'
 import '../components/style/article-edit.less'
 
 export default class ArticleEdit extends Component {
   static async getInitialProps (context) {
-    const {asPath, query} = context
-    const idReg = asPath.match(/[0-9]+$/)
-    const props = {route: {path: asPath, query}, articleId: idReg ? idReg[0] : null}
+    const {
+      asPath,
+      query,
+      query: { id }
+    } = context
+    const props = {
+      route: { path: asPath, query },
+      articleId: id
+    }
 
     return props
   }
@@ -66,7 +72,11 @@ export default class ArticleEdit extends Component {
   }
   async fetchAllTags () {
     const result = await getAllTags()
-    if (Array.isArray(result)) this.setState({allTags: result})
+    if (result && result.success) {
+      this.setState({
+        allTags: result.data
+      })
+    }
   }
   async uploadImage (img, callback) {
     const result = await uploadFile(img)
@@ -88,13 +98,17 @@ export default class ArticleEdit extends Component {
     } else alert('未选择标签或未输入有效内容')
   }
   async fetchEditArticleData () {
-    if (this.props.articleId) {
-      const articleData = await getArticleDetail(this.props.articleId)
-      if (articleData && !this.useHistory) {
-        this.setState({
-          inputArticle: articleData.codeText,
-          selectedTags: articleData.tags
-        }, () => this.robinEditorRef.current.compileMarkdown(articleData.codeText))
+    const { articleId } = this.props
+    if (articleId) {
+      const result = await getArticleDetail(articleId)
+      if (result && result.success) {
+        const articleData = result.data
+        if (articleData && !this.useHistory) {
+          this.setState({
+            inputArticle: articleData.codeText,
+            selectedTags: articleData.tags
+          }, () => this.robinEditorRef.current.compileMarkdown(articleData.codeText))
+        }
       }
     }
   }
