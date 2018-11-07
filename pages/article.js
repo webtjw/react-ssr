@@ -1,15 +1,16 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PageWrapper from '../components/PageWrapper'
 import ArticleSchemaItem from '../components/ArticleSchemaItem'
 import { getArchive } from '../request'
 
 class Article extends Component {
   static async getInitialProps(ctx) {
-    const {asPath, pathname, query} = ctx
+    const { asPath, query } = ctx
     const props = {route: {path: asPath, query}}
     // 获取远程文章数据
-    const archiveDatas = await getArchive()
-    if (archiveDatas) {
+    const result = await getArchive()
+    if (result.success && result.data) {
+      const archiveDatas = result.data
       // 根据月份区分
       const monthList = []
       let currentMonth = { month: '', list: [] }

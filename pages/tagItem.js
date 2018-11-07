@@ -12,8 +12,11 @@ class TagItem extends Component {
     const tag = decodeURIComponent(context.req.url.match(/^\/tag\/(\S+)$/)[1])
     props.tag = tag
 
-    const tagArticles = await getArticleByTag(tag)
-    if (tagArticles) props.articles = tagArticles
+    const result = await getArticleByTag(tag)
+    if (result && result.success) {
+      const tagArticles = result.data
+      props.articles = tagArticles
+    }
     return props
   }
 

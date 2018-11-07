@@ -26,7 +26,7 @@ class Login extends Component {
       state: { token },
       props: { updateDeveloper },
     } = this
-    if (typeof token === 'string' && token.trim()) {
+    if (token.trim()) {
       const result = await login(token)
       if (result) {
         updateDeveloper()

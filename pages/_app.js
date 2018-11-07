@@ -11,7 +11,7 @@ export default class MyApp extends App {
     
     return {
       pageProps,
-      developer: ctx && ctx.req && ctx.req.headers.cookie && ctx.req.headers.cookie.indexOf('authentication') > -1
+      developer: false
     }
   }
 
@@ -24,9 +24,15 @@ export default class MyApp extends App {
   }
 
 
+  async checkPersistentToken () {
+    const result = await checkDeveloper()
+    this.setState({
+      developer: result.success && result.data
+    })
+  }
+
   componentDidMount () {
-    this.setState({developer: this.props.developer})
-    checkDeveloper()
+    this.checkPersistentToken()
   }
   render () {
     const developer = this.state ? this.state.developer : this.props.developer

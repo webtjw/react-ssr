@@ -8,11 +8,17 @@ import '../components/style/article-preview.less'
 
 export default class Index extends Component {
   static async getInitialProps(context) {
-    const {asPath, query} = context
-    const props = {route: {path: asPath, query}}
+    const { asPath, query } = context
+    const props = {
+      route: { path: asPath, query }
+    }
     // 获取远程文章数据
-    const articles = await getHomeArticle()
-    props.articles = articles || []
+    const result = await getHomeArticle()
+    if (result && result.success) {
+      props.articles = result.data
+    } else {
+      props.articles = []
+    }
     return props
   }
 

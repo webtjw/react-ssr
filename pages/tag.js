@@ -5,11 +5,16 @@ import {getAllTags} from '../request'
 
 class Tag extends Component {
   static async getInitialProps (context) {
-    const {asPath, pathname, query} = context
-    const props = {route: {path: asPath, query}}
+    const { asPath, query } = context
+    const props = {
+      route: { path: asPath, query }
+    }
   
-    const remoteTags = await getAllTags()
-    if (remoteTags) props.tags = remoteTags.sort((x, y) => y.number - x.number)
+    const result = await getAllTags()
+    if (result.success) {
+      const remoteTags = result.data
+      if (remoteTags) props.tags = remoteTags.sort((x, y) => y.number - x.number)
+    }
 
     return props
   }
