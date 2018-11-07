@@ -112,7 +112,7 @@ export default class ArticleEdit extends Component {
   }
   uploadImage = async (img, callback) => {
     const result = await uploadFile(img)
-    callback && callback(result.success ? result.data : false)
+    result && result.success && callback && callback(result.data)
   }
 
   componentDidMount () {
