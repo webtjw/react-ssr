@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const axiosRequest = axios.create({
   baseURL: '/blog',
-  withCredentials: false,
+  withCredentials: true,
 })
 
 axiosRequest.interceptors.response.use(response => {

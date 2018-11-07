@@ -47,9 +47,8 @@ export function saveArticle (article) {
 export function uploadFile (file) {
   const formdata = new FormData()
   formdata.append('file', file)
-
   return axios({
-    url: '/commonApi/upload',
+    url: '/common/upload',
     baseURL: '',
     method: 'POST',
     data: formdata,

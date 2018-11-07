@@ -79,8 +79,6 @@ export default class ArticleEdit extends Component {
     }
   }
   async uploadImage (img, callback) {
-    const result = await uploadFile(img)
-    callback && callback(result.success ? result.data : false)
   }
   async saveArticle ({title, antecedent, compileCode}) {
     const id = this.props.articleId
@@ -111,6 +109,10 @@ export default class ArticleEdit extends Component {
         }
       }
     }
+  }
+  uploadImage = async (img, callback) => {
+    const result = await uploadFile(img)
+    callback && callback(result.success ? result.data : false)
   }
 
   componentDidMount () {
@@ -148,7 +150,7 @@ export default class ArticleEdit extends Component {
         </div>
         <RobinEditor 
           ref={robinEditorRef}
-          onUpload={(file, cb) => this.uploadImage(file, cb)}
+          onUpload={this.uploadImage}
           value={inputArticle}
           updateValue={(val, cb)=> this.setState({inputArticle: val}, () => cb && cb())}
           onSave={d => this.saveArticle(d)}
