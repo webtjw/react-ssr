@@ -80,21 +80,6 @@ export default class ArticleEdit extends Component {
   }
   async uploadImage (img, callback) {
   }
-  async saveArticle ({title, antecedent, compileCode}) {
-    const id = this.props.articleId
-    const {selectedTags, inputArticle} = this.state
-    const article = {code: inputArticle, antecedent, title}
-
-    if (id) article.id = id
-    if (selectedTags.length > 0 && compileCode) {
-      article.tags = selectedTags
-      const result = await saveArticle(article)
-      if (result) {
-        alert('保存成功')
-        Router.replace(`/article/${result.id}`)
-      } else alert('保存失败，请重试')
-    } else alert('未选择标签或未输入有效内容')
-  }
   async fetchEditArticleData () {
     const { articleId } = this.props
     if (articleId) {
@@ -110,9 +95,32 @@ export default class ArticleEdit extends Component {
       }
     }
   }
+
   uploadImage = async (img, callback) => {
     const result = await uploadFile(img)
     result && result.success && callback && callback(result.data)
+  }
+
+  saveArticle = async ({ title, antecedent, compileCode }) => {
+    const id = this.props.articleId
+    const { selectedTags, inputArticle } = this.state
+    const article = {code: inputArticle, antecedent, title}
+
+    if (id) {
+      article.id = id
+    }
+    if (selectedTags.length > 0 && compileCode) {
+      article.tags = selectedTags
+      const result = await saveArticle(article)
+      if (result && result.success) {
+        alert('保存成功')
+        Router.replace(`/article/${result.data}`)
+      } else {
+        alert('保存失败，请重试')
+      }
+    } else {
+      alert('未选择标签或未输入有效内容')
+    }
   }
 
   componentDidMount () {

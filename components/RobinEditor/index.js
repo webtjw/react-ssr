@@ -43,7 +43,7 @@ class RobinEditor extends Component {
       additionalToolType: -1,
       compileText: ''
     }
-
+    // not state attrs
     this.selectState = {
       start: 0,
       end: 0,
