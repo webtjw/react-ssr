@@ -32,7 +32,7 @@ class ArticleDetail extends Component {
           <div className="m-r-40">{article.time}</div>
           {
             article.tags && article.tags.length ? <div data-flex="dir:left main:center cross:center">
-              <img src="/static/svg/tag.svg" alt="tag" className="svg-14 icon-tag" />
+              <img src="/nextStatic/svg/tag.svg" alt="tag" className="svg-14 icon-tag" />
               {
                 article.tags.map(tag => <Link key={tag} href={`/tag/${tag}`}><a className="m-l-8">{tag}</a></Link>)
               }

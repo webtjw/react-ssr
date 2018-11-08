@@ -26,7 +26,7 @@ class TagItem extends Component {
     return <PageWrapper title={`${tag} · 标签`} description="标签分类,文章标签" keyword="标签分类,技术标签" route={route}>
       <div className="tag-item-page p-t-40">
         <div className="p-b-40" data-flex="dir:left cross:center">
-          <img className="svg-16" src='/static/svg/tag.svg' alt="tag"/>
+          <img className="svg-16" src='/nextStatic/svg/tag.svg' alt="tag"/>
           <h1 className="font-18 m-l-18">"{tag}"</h1>
         </div>
         <ul className="article-list">

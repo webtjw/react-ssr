@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import '../style/robinInput.less'
 
 class RobinInput extends Component {
-  nextStatic propTypes = {
+  static propTypes = {
     value: PropTypes.string.isRequired,
     width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     label: PropTypes.string,
@@ -14,7 +14,7 @@ class RobinInput extends Component {
     valueHandle: PropTypes.func.isRequired,
     onEnter: PropTypes.func
   }
-  nextStatic defaultProps = {
+  static defaultProps = {
     value: '',
     width: 300,
     label: '输入内容',

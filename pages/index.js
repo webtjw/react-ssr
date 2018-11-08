@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Link from 'next/link'
 import PageWrapper from '../components/PageWrapper'
-import {getHomeArticle} from '../request'
+import { getHomeArticle } from '../request'
 import compileMarkdown from '../utils/markdownCompiler'
 import '../components/style/index.less'
 import '../components/style/article-preview.less'
@@ -40,7 +40,7 @@ export default class Index extends Component {
   buildTags (tags) {
     if (tags.length) {
       return <div className="attribute m-t-40 m-b-20 font-14" data-flex="dir:left cross:center">
-        <img className="svg-14" src="/static/svg/tag.svg" alt="tag"/>
+        <img className="svg-14" src="/nextStatic/svg/tag.svg" alt="tag"/>
         {tags.map(tag => <Link key={tag} href={`/tag/${tag}`}><a className="m-l-10 c-999 underline">{tag}</a></Link>)}
       </div>
     } else return null
