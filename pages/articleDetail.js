@@ -1,18 +1,23 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Link from 'next/link'
 import PageWrapper from '../components/PageWrapper'
 import compileMarkdown from '../utils/markdownCompiler'
-import {getArticleDetail} from '../request'
+import { getArticleDetail } from '../request'
 import '../components/style/article-preview.less'
 
 class ArticleDetail extends Component {
   static async getInitialProps (context) {
-    const {asPath, query, req} = context
-    const props = {route: {path: asPath, query}}
+    const { asPath, query } = context
+    const props = {
+      route: { path: asPath, query }
+    }
     // 获取 id 再拉取远程数据
-    const {id} = query
-    const articleDetail = await getArticleDetail(id)
-    if (articleDetail) props.article = articleDetail
+    const { id } = query
+    const result = await getArticleDetail(id)
+    if (result && result.success) {
+      const articleDetail = result.data
+      props.article = articleDetail
+    }
     return props
   }
 
@@ -27,7 +32,7 @@ class ArticleDetail extends Component {
           <div className="m-r-40">{article.time}</div>
           {
             article.tags && article.tags.length ? <div data-flex="dir:left main:center cross:center">
-              <img src="/static/svg/tag.svg" alt="tag" className="svg-14 icon-tag" />
+              <img src="/nextStatic/svg/tag.svg" alt="tag" className="svg-14 icon-tag" />
               {
                 article.tags.map(tag => <Link key={tag} href={`/tag/${tag}`}><a className="m-l-8">{tag}</a></Link>)
               }

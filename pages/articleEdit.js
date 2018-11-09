@@ -1,15 +1,21 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Router from 'next/router'
 import PageWrapper from '../components/PageWrapper'
-import {getAllTags, getArticleDetail, saveArticle, uploadFile} from '../request'
+import { getAllTags, getArticleDetail, saveArticle, uploadFile } from '../request'
 import RobinEditor from '../components/RobinEditor'
 import '../components/style/article-edit.less'
 
 export default class ArticleEdit extends Component {
   static async getInitialProps (context) {
-    const {asPath, query} = context
-    const idReg = asPath.match(/[0-9]+$/)
-    const props = {route: {path: asPath, query}, articleId: idReg ? idReg[0] : null}
+    const {
+      asPath,
+      query,
+      query: { id }
+    } = context
+    const props = {
+      route: { path: asPath, query },
+      articleId: id
+    }
 
     return props
   }
@@ -66,36 +72,54 @@ export default class ArticleEdit extends Component {
   }
   async fetchAllTags () {
     const result = await getAllTags()
-    if (Array.isArray(result)) this.setState({allTags: result})
+    if (result && result.success) {
+      this.setState({
+        allTags: result.data
+      })
+    }
   }
   async uploadImage (img, callback) {
-    const result = await uploadFile(img)
-    callback && callback(result.success ? result.data : false)
   }
-  async saveArticle ({title, antecedent, compileCode}) {
+  async fetchEditArticleData () {
+    const { articleId } = this.props
+    if (articleId) {
+      const result = await getArticleDetail(articleId)
+      if (result && result.success) {
+        const articleData = result.data
+        if (articleData && !this.useHistory) {
+          this.setState({
+            inputArticle: articleData.codeText,
+            selectedTags: articleData.tags
+          }, () => this.robinEditorRef.current.compileMarkdown(articleData.codeText))
+        }
+      }
+    }
+  }
+
+  uploadImage = async (img, callback) => {
+    const result = await uploadFile(img)
+    result && result.success && callback && callback(result.data)
+  }
+
+  saveArticle = async ({ title, antecedent, compileCode }) => {
     const id = this.props.articleId
-    const {selectedTags, inputArticle} = this.state
+    const { selectedTags, inputArticle } = this.state
     const article = {code: inputArticle, antecedent, title}
 
-    if (id) article.id = id
+    if (id) {
+      article.id = id
+    }
     if (selectedTags.length > 0 && compileCode) {
       article.tags = selectedTags
       const result = await saveArticle(article)
-      if (result) {
+      if (result && result.success) {
         alert('保存成功')
-        Router.replace(`/article/${result.id}`)
-      } else alert('保存失败，请重试')
-    } else alert('未选择标签或未输入有效内容')
-  }
-  async fetchEditArticleData () {
-    if (this.props.articleId) {
-      const articleData = await getArticleDetail(this.props.articleId)
-      if (articleData && !this.useHistory) {
-        this.setState({
-          inputArticle: articleData.codeText,
-          selectedTags: articleData.tags
-        }, () => this.robinEditorRef.current.compileMarkdown(articleData.codeText))
+        Router.replace(`/article/${result.data}`)
+      } else {
+        alert('保存失败，请重试')
       }
+    } else {
+      alert('未选择标签或未输入有效内容')
     }
   }
 
@@ -134,7 +158,7 @@ export default class ArticleEdit extends Component {
         </div>
         <RobinEditor 
           ref={robinEditorRef}
-          onUpload={(file, cb) => this.uploadImage(file, cb)}
+          onUpload={this.uploadImage}
           value={inputArticle}
           updateValue={(val, cb)=> this.setState({inputArticle: val}, () => cb && cb())}
           onSave={d => this.saveArticle(d)}

@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import compileMarkdown from '../../utils/markdownCompiler'
 import './assets/RobinEditor.less'
@@ -7,7 +7,7 @@ import './assets/RobinEditor.less'
 let notFullEditHeight = 0
 let fullEditHeight = 0
 const compileDelay = 400
-const svgAccess = iconName => `/ssrStatic/images/RobinEditor/${iconName}.svg`
+const svgAccess = iconName => `/nextStatic/images/RobinEditor/${iconName}.svg`
 
 class RobinEditor extends Component {
   static propTypes = {
@@ -43,7 +43,7 @@ class RobinEditor extends Component {
       additionalToolType: -1,
       compileText: ''
     }
-
+    // not state attrs
     this.selectState = {
       start: 0,
       end: 0,
@@ -150,18 +150,11 @@ class RobinEditor extends Component {
       next: value.slice(end)
     }
   }
-  onFileUpload (e) {
-    const {props: {onUpload}} = this
-    const file = e.target.files[0]
-    const fileType = file.type.split('/')
-    if (fileType[0] && fileType[0] === 'image') onUpload && onUpload(file, url => this.addImage(url))
-    else alert('上传文件非图片')
-    // hide
-    this.setState({additionalToolType: -1})
-  }
   addImage (path) {
     if (path) {
-      const {selectState: {start, prev, selected, next}} = this
+      const {
+        selectState: { start, prev, selected, next }
+      } = this
       const isPrevWrap = prev.endsWith('\n')
       this.updateInputValue((isPrevWrap ? prev : (prev + '\n')) + `![${selected || 'alt'}](${path} "title")\n` + next, start + 2 + Number(!isPrevWrap), start + (selected.length || 3) + 2 + Number(!isPrevWrap))
     }
@@ -220,6 +213,24 @@ class RobinEditor extends Component {
       }
     }
   }
+  onFileUpload = e => {
+    const {
+      props: { onUpload }
+    } = this
+    const file = e.target.files[0]
+    // 上传同一个文件时不触发 onchange，需要在读取文件信息后清空 value
+    e.target.value = ''
+    const fileType = file.type.split('/')
+    if (fileType[0] && fileType[0] === 'image') {
+      onUpload && onUpload(file, url => this.addImage(url))
+    } else {
+      alert('不合法的图片文件')
+    }
+    // hide
+    this.setState({
+      additionalToolType: -1
+    })
+  }
 
   componentDidMount () {
     this.setHeight(true)
@@ -260,7 +271,7 @@ class RobinEditor extends Component {
             <div data-flex="dir:left cross:center">
               <label data-flex-box="0">本地图片：</label>
               <div className="btn upload-image" onClick={() => this.refUploadInput.current.click()}>上传</div>
-              <input type="file" ref={refUploadInput} onChange={e => this.onFileUpload(e)} />
+              <input type="file" ref={refUploadInput} onChange={this.onFileUpload} />
             </div>
           </div>
           <div className="additional-table" style={{display: additionalToolType === 'table' ? '' : 'none'}}>

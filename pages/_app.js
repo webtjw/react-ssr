@@ -1,14 +1,17 @@
-import App, {Container} from 'next/app'
+import App, { Container } from 'next/app'
 import React from 'react'
+import { checkDeveloper } from '../request'
 
 export default class MyApp extends App {
   static async getInitialProps ({Component, router, ctx}) {
     let pageProps = {}
-    if (Component.getInitialProps) pageProps = await Component.getInitialProps(ctx) // default
+    if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps(ctx)
+    }
     
     return {
       pageProps,
-      developer: ctx && ctx.req && ctx.req.headers.cookie && ctx.req.headers.cookie.indexOf('authentication') > -1
+      developer: false
     }
   }
 
@@ -21,8 +24,15 @@ export default class MyApp extends App {
   }
 
 
+  async checkPersistentToken () {
+    const result = await checkDeveloper()
+    this.setState({
+      developer: result
+    })
+  }
+
   componentDidMount () {
-    this.setState({developer: this.props.developer})
+    this.checkPersistentToken()
   }
   render () {
     const developer = this.state ? this.state.developer : this.props.developer
