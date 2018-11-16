@@ -49,9 +49,10 @@ export default class Index extends Component {
   render () {
     const {articles, route, developer} = this.props
 
-    return <PageWrapper title="Robin · 技术小站" route={route} developer={developer}>
+    return <PageWrapper title="大猫 の 前端技术博客" route={route} developer={developer}>
       <div className="main-index">
         {this.buildArticleJSX(articles)}
+        <div className="p-t-40 p-b-10 c-999 a-c font-13">粤ICP备18140188号</div>
       </div>
     </PageWrapper>
   }

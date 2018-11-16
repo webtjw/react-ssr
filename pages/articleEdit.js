@@ -134,7 +134,7 @@ export default class ArticleEdit extends Component {
       robinEditorRef
     } = this
 
-    return <PageWrapper title="编辑文章 · Robin" route={route} developer={developer}>
+    return <PageWrapper title="编辑文章 · 大猫" route={route} developer={developer}>
       <div className="main-article-edit">
         {/* tag */}
         <div className="p-v-10">
